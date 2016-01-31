@@ -4244,6 +4244,13 @@
                 "hidden": "0"
             },
             {
+                "identifier": "simplified_layout",
+                "value": "0",
+                "type": "0",
+                "explain": "Simplified layout",
+                "hidden": "0"
+            },
+            {
                 "identifier": "bbc_button_visible",
                 "value": "1",
                 "type": "0",

@@ -20,13 +20,17 @@
 	 
 <div>
 
+<?php if ((int)erLhcoreClassModelChatConfig::fetch('simplified_layout')->current_value == 0) : ?>
 <a onclick="return lhc.revealModal({'iframe':true,'height':350,'url':WWW_DIR_JAVASCRIPT +'chat/modifychat/<?php echo $chat->id?>'})" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Edit main chat information')?>" href="#"><i class="material-icons mr-0">mode_edit</i></a>
+<?php endif;?>
 
 <?php if (!isset($hideActionBlock)) : ?>
 		
+<?php if ((int)erLhcoreClassModelChatConfig::fetch('simplified_layout')->current_value == 0) : ?>
 		<a class="material-icons mr-0" data-title="<?php echo htmlspecialchars($chat->nick,ENT_QUOTES);?>" onclick="lhinst.startChatCloseTabNewWindow('<?php echo $chat->id;?>',$('#tabs'),$(this).attr('data-title'))" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Open in a new window');?>">open_in_new</a>
 					
 		<a class="material-icons mr-0" onclick="lhinst.removeDialogTab('<?php echo $chat->id?>',$('#tabs'),true)" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Close dialog')?>">remove_circle_outline</a>
+<?php endif;?>
 		
 		<?php if ($chat->user_id == erLhcoreClassUser::instance()->getUserID() || erLhcoreClassUser::instance()->hasAccessTo('lhchat','allowcloseremote')) : ?>
 		<a class="material-icons mr-0" onclick="lhinst.closeActiveChatDialog('<?php echo $chat->id?>',$('#tabs'),true)" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Close chat')?>">close</a>
@@ -42,6 +46,7 @@
             <?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/actions/blockuser.tpl.php'));?>
 		<?php endif;?>
 		
+<?php if ((int)erLhcoreClassModelChatConfig::fetch('simplified_layout')->current_value == 0) : ?>
 		<a class="material-icons mr-0 <?php if ($chat->mail_send == 1) : ?>icon-mail-send<?php endif; ?>" onclick="lhc.revealModal({'iframe':true,'height':500,'url':WWW_DIR_JAVASCRIPT +'chat/sendmail/<?php echo $chat->id?>'})" title="<?php if ($chat->mail_send == 1) : ?><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Mail was send')?><?php else : ?><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Send mail')?><?php endif;?>">mail</a>
 		
 		<a class="material-icons mr-0" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Redirect user to contact form.');?>" onclick="lhinst.redirectContact('<?php echo $chat->id;?>','<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Are you sure?');?>')" >reply</a>
@@ -59,6 +64,7 @@
 		<?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/actions/cobrowse.tpl.php'));?>
 				
 		<?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/chat_actions_extension_multiinclude.tpl.php'));?>
+<?php endif;?>
 		 	
 	<?php else : ?>
 	<a class="material-icons mr-0" target="_blank" href="<?php echo erLhcoreClassDesign::baseurl('chatarchive/printchatadmin')?>/<?php echo $archive->id?>/<?php echo $chat->id?>">print</a>

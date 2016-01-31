@@ -195,6 +195,9 @@
     		    <?php $attribute = 'on_close_exit_chat'; $boolValue = true; ?>
     		    <?php include(erLhcoreClassDesign::designtpl('lhchat/part/chat_settings.tpl.php'));?>
 
+    		    <?php $attribute = 'simplified_layout'; $boolValue = true; ?>
+    		    <?php include(erLhcoreClassDesign::designtpl('lhchat/part/chat_settings.tpl.php'));?>
+
 			</div>
 						
 			<div role="tabpanel" class="tab-pane" id="visitoractivity">

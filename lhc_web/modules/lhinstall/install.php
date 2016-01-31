@@ -892,6 +892,7 @@ switch ((int)$Params['user_parameters']['step_id']) {
                 ('accept_tos_link', '#', 0, 'Change to your site Terms of Service', 0),
                 ('hide_button_dropdown', '0', 0, 'Hide close button in dropdown', 0),
                 ('on_close_exit_chat', '0', 0, 'On chat close exit chat', 0),
+                ('simplified_layout', '0', 0, 'Simplified layout', 0),
                 ('product_enabled_module','0','0','Product module is enabled', '1'),
                 ('paidchat_data','','0','Paid chat configuration','1'),
                 ('file_configuration',	'a:7:{i:0;b:0;s:5:\"ft_op\";s:43:\"gif|jpe?g|png|zip|rar|xls|doc|docx|xlsx|pdf\";s:5:\"ft_us\";s:26:\"gif|jpe?g|png|doc|docx|pdf\";s:6:\"fs_max\";i:2048;s:18:\"active_user_upload\";b:0;s:16:\"active_op_upload\";b:1;s:19:\"active_admin_upload\";b:1;}',	0,	'Files configuration item',	1),

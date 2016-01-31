@@ -1,6 +1,7 @@
 <div role="tabpanel">
+<?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/tabs_order.tpl.php')); ?>
+<?php if ((int)erLhcoreClassModelChatConfig::fetch('simplified_layout')->current_value == 0) : ?>
 	<ul class="nav nav-pills" role="tablist" id="chat-tab-items-<?php echo $chat->id?>">	
-	    <?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/tabs_order.tpl.php')); ?>
 		    
 	    <?php 
 	    /**
@@ -43,6 +44,9 @@
        <?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/online_user_info.tpl.php')); ?>
        <?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/extension_chat_tab_content_multiinclude.tpl.php'));?>  	
 	</div>
+<?php else : ?>
+	   <?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/information_tab.tpl.php')); ?>	   
+<?php endif;?>
 </div>
 
 <?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/extension_post_chat_tabs_conatiner_multiinclude.tpl.php'));?>  	

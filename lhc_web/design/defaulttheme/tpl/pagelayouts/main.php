@@ -10,7 +10,7 @@
 
 <?php include_once(erLhcoreClassDesign::designtpl('pagelayouts/parts/top_menu.tpl.php'));?>
 
-<div class="container-fluid" id="wrapper" ng-class="{toggled: lmtoggle}">
+<div class="container-fluid" id="wrapper" ng-class="{toggled: lmtoggle }">
 
 <?php include(erLhcoreClassDesign::designtpl('pagelayouts/parts/sidemenu/sidemenu.tpl.php'));?>
 <?php include(erLhcoreClassDesign::designtpl('pagelayouts/parts/path.tpl.php'));?>
