@@ -7,3 +7,4 @@ CREATE TABLE `lh_abstract_rest_api_key` (
   KEY `api_key` (`api_key`),
   KEY `user_id` (`user_id`)
 ) DEFAULT CHARSET=utf8;
+ALTER TABLE `lh_abstract_widget_theme` ADD `bbcode_title` VARCHAR(250) NOT NULL, COMMENT='';
