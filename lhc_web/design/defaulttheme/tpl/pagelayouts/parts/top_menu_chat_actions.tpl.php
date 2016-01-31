@@ -5,6 +5,8 @@ if ($currentUser->hasAccessTo('lhchat','allowchattabs')) {
     $menuItems[] = array('href' => 'javascript:void(0)', 'onclick' => 'javascript:lhinst.chatTabsOpen()' ,'iclass' => 'chat', 'text' => erTranslationClassLhTranslation::getInstance()->getTranslation('pagelayout/pagelayout','Chat tabs')); 		
 } 
 
+if ((int)erLhcoreClassModelChatConfig::fetch('simplified_layout')->current_value == 0) {
 $menuItems[] = array('href' => erLhcoreClassDesign::baseurl('chat/list'),'iclass' => 'list', 'text' => erTranslationClassLhTranslation::getInstance()->getTranslation('pagelayout/pagelayout','Chats list'));
+}
 
 endif;?>
