@@ -82,7 +82,9 @@ lhcAppControllers.controller('LiveHelperChatCtrl',['$scope','$http','$location',
 	$scope.unread_chats = {};
 	$scope.unread_chats_expanded = true;
 	$scope.transfer_dep_chats = {};
+	$scope.transfer_dep_chats_expanded = true;
 	$scope.transfer_chats = {};
+	$scope.transfer_chats_expanded = true;
 	$scope.timeoutControl = null;
 	$scope.setTimeoutEnabled = true;
 	$scope.lmtoggle = false;

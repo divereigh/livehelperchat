@@ -277,7 +277,8 @@ option.offline-dep{
 #right-pending-chats p,
 #right-active-chats p,
 #right-unread-chats p,
-#right-closed-chats p{
+#right-closed-chats p,
+#right-transfer-departments p{
 	font-size:0.75em;
 }
 
