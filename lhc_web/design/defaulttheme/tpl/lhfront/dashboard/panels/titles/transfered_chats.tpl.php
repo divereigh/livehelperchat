@@ -1,1 +1,1 @@
-<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('pagelayout/pagelayout','Transferred chats');?>
+<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('pagelayout/pagelayout','Direct transfer chats');?>

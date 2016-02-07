@@ -59,6 +59,7 @@ $columnSize = 12 / $columnsTotal;
             
                     <?php if ($transfer_panel_container_pre_enabled == true) : ?>
                             <?php include(erLhcoreClassDesign::designtpl('lhfront/dashboard/panels/transfered_chats.tpl.php'));?>
+                            <?php include(erLhcoreClassDesign::designtpl('lhfront/dashboard/panels/transfered_dep_chats.tpl.php'));?>
                     <?php endif;?>
                     
                 <?php elseif ($wiget == 'closed_chats') : ?>
