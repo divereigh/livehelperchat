@@ -29,7 +29,9 @@
                     $departments_filter = array (
                         'dep_id' => $chat->dep_id,
                         'chat_id' => $chat->id,
-                        'filter' => array(),
+                        'filter' => array(
+				'filter'=>array('hidden'=>0, 'disabled'=>0)
+			),
                         'explicit' => true
                     );
                     ?>
@@ -40,19 +42,21 @@
 
             		<input type="button" onclick="lhinst.transferChatDep('<?php echo $chat->id;?>')" class="btn btn-default" value="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Transfer');?>" />
         		</div>
+<?php if ((int)erLhcoreClassModelChatConfig::fetch('simplified_layout')->current_value == 0) : ?>
         		<div class="col-xs-6">
         		    <div class="checkbox">
         		      <label><input type="checkbox" onchange="updateTransferDepartments()" checked="checked" id="dep_transfer_only_explicit"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Only departments which are online and explicitly assigned operator are online');?></label>
         		    </div>
         		    
         		    <div class="checkbox">
-        		      <label><input type="checkbox" onchange="updateTransferDepartments()" id="dep_transfer_exclude_hidden"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Exclude hidden departments');?></label>
+        		      <label><input type="checkbox" onchange="updateTransferDepartments()" checked="checked" id="dep_transfer_exclude_hidden"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Exclude hidden departments');?></label>
         		    </div>
         		    
         		    <div class="checkbox">
-        		      <label><input type="checkbox" onchange="updateTransferDepartments()" id="dep_transfer_exclude_disabled"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Exclude disabled departments');?></label>
+        		      <label><input type="checkbox" onchange="updateTransferDepartments()" checked="checked" id="dep_transfer_exclude_disabled"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Exclude disabled departments');?></label>
         		    </div>
         		</div>
+<?php endif; ?>
             </div>
 
             <script type="text/javascript">
