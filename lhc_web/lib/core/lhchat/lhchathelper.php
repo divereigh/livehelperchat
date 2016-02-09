@@ -9,7 +9,7 @@ class erLhcoreClassChatHelper
     public static function redirectToContactForm($params)
     {
         $msg = new erLhcoreClassModelmsg();
-        $msg->msg = (string) $params['user'] . ' ' . erTranslationClassLhTranslation::getInstance()->getTranslation('chat/closechatadmin', 'has redirected user to contact form!');
+        $msg->msg = (string) $params['user']->name_support . ' ' . erTranslationClassLhTranslation::getInstance()->getTranslation('chat/closechatadmin', 'has redirected user to contact form!');
         $msg->chat_id = $params['chat']->id;
         $msg->user_id = - 1;
         
@@ -43,7 +43,7 @@ class erLhcoreClassChatHelper
             $params['chat']->chat_duration = erLhcoreClassChat::getChatDurationToUpdateChatID($params['chat']->id);
             
             $msg = new erLhcoreClassModelmsg();
-            $msg->msg = (string) $params['user'] . ' ' . erTranslationClassLhTranslation::getInstance()->getTranslation('chat/closechatadmin', 'has closed the chat!');
+            $msg->msg = (string) $params['user']->name_support . ' ' . erTranslationClassLhTranslation::getInstance()->getTranslation('chat/closechatadmin', 'has closed the chat!');
             $msg->chat_id = $params['chat']->id;
             $msg->user_id = - 1;
             
@@ -100,7 +100,7 @@ class erLhcoreClassChatHelper
                 $chat->chat_duration = erLhcoreClassChat::getChatDurationToUpdateChatID($chat->id);
                 	
                 $msg = new erLhcoreClassModelmsg();
-                $msg->msg = (string)$userData.' '.erTranslationClassLhTranslation::getInstance()->getTranslation('chat/closechatadmin','has closed the chat!');
+                $msg->msg = (string)$userData->name_support.' '.erTranslationClassLhTranslation::getInstance()->getTranslation('chat/closechatadmin','has closed the chat!');
                 $msg->chat_id = $chat->id;
                 $msg->user_id = -1;
         
