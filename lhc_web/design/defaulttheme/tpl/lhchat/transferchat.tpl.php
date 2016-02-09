@@ -7,7 +7,7 @@
 		<li role="presentation"><a href="#transferusermodal" aria-controls="transferusermodal" role="tab" data-toggle="tab"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Transfer to a user');?></a></li>
 	</ul>
 	<div class="tab-content">
-		<div role="tabpanel" class="tab-pane active" id="transferusermodal">
+		<div role="tabpanel" class="tab-pane" id="transferusermodal">
 		
     		<h4><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Logged in users');?></h4>
     
@@ -20,7 +20,7 @@
     		<input type="button" onclick="lhinst.transferChat('<?php echo $chat->id;?>')" class="btn btn-default" value="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Transfer');?>" />
     		
 		</div>
-		<div role="tabpanel" class="tab-pane" id="transferdepmodal">
+		<div role="tabpanel" class="tab-pane active" id="transferdepmodal">
 
     		<div class="row">
     		    <div class="col-xs-6">
