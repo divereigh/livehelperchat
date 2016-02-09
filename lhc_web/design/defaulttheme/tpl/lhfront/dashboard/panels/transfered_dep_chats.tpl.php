@@ -1,9 +1,9 @@
-<div class="panel panel-default panel-dashboard" data-panel-id="transfered_dep_chats" ng-init="lhc.getToggleWidget('trchats_widget_exp')">
+<div class="panel panel-default panel-dashboard" data-panel-id="transfered_dep_chats" ng-init="lhc.getToggleWidget('trdchats_widget_exp')">
 	<div class="panel-heading">
 		<i class="material-icons chat-pending">chat</i> <?php include(erLhcoreClassDesign::designtpl('lhfront/dashboard/panels/titles/transfered_dep_chats.tpl.php'));?> ({{transfer_dep_chats.list.length}})
-		<a title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('pagelayout/pagelayout','collapse/expand')?>" ng-click="lhc.toggleWidget('trchats_widget_exp')" class="fs24 pull-right material-icons exp-cntr">{{lhc.toggleWidgetData['trchats_widget_exp'] == false ? 'expand_less' : 'expand_more'}}</a>
+		<a title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('pagelayout/pagelayout','collapse/expand')?>" ng-click="lhc.toggleWidget('trdchats_widget_exp')" class="fs24 pull-right material-icons exp-cntr">{{lhc.toggleWidgetData['trdchats_widget_exp'] == false ? 'expand_less' : 'expand_more'}}</a>
 	</div>
-	<div ng-if="lhc.toggleWidgetData['trchats_widget_exp'] !== true">
+	<div ng-if="lhc.toggleWidgetData['trdchats_widget_exp'] !== true">
 	    	<div ng-if="transfer_dep_chats.list.length > 0" class="panel-list">
        	 	<table class="table table-condensed mb0 table-small table-fixed">
        	         	<thead>
