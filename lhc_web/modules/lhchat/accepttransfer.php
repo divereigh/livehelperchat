@@ -25,11 +25,11 @@ if  ($chatTransfer->dep_id > 0) {
 
 	$chat->user_id = $currentUser->getUserID();
 	$chat->status_sub = erLhcoreClassModelChat::STATUS_SUB_OWNER_CHANGED;
-	$chat->user_typing_txt = (string)$chat->user.' '.htmlspecialchars_decode(erTranslationClassLhTranslation::getInstance()->getTranslation('chat/accepttrasnfer','has joined the chat!'),ENT_QUOTES);
+	$chat->user_typing_txt = (string)$chat->user->name_support.' '.htmlspecialchars_decode(erTranslationClassLhTranslation::getInstance()->getTranslation('chat/accepttrasnfer','has joined the chat!'),ENT_QUOTES);
 	$chat->user_typing  = time();
 	
 	$msg = new erLhcoreClassModelmsg();
-	$msg->msg = (string)$chat->user.' '.erTranslationClassLhTranslation::getInstance()->getTranslation('chat/accepttrasnfer','has accepted a chat!');
+	$msg->msg = (string)$chat->user->name_support.' '.erTranslationClassLhTranslation::getInstance()->getTranslation('chat/accepttrasnfer','has accepted the chat!');
 	$msg->chat_id = $chat->id;
 	$msg->user_id = -1;
 }
@@ -37,11 +37,11 @@ if  ($chatTransfer->dep_id > 0) {
 if ($chatTransfer->transfer_to_user_id == $currentUser->getUserID()){
 	$chat->user_id = $currentUser->getUserID();
 	$chat->status_sub = erLhcoreClassModelChat::STATUS_SUB_OWNER_CHANGED;
-	$chat->user_typing_txt = (string)$chat->user.' '.htmlspecialchars_decode(erTranslationClassLhTranslation::getInstance()->getTranslation('chat/accepttrasnfer','has joined the chat!'),ENT_QUOTES);
+	$chat->user_typing_txt = (string)$chat->user->name_support.' '.htmlspecialchars_decode(erTranslationClassLhTranslation::getInstance()->getTranslation('chat/accepttrasnfer','has joined the chat!'),ENT_QUOTES);
 	$chat->user_typing  = time();
 	
 	$msg = new erLhcoreClassModelmsg();
-	$msg->msg = (string)$chat->user.' '.erTranslationClassLhTranslation::getInstance()->getTranslation('chat/accepttrasnfer','has accepted a chat!');
+	$msg->msg = (string)$chat->user->name_support.' '.erTranslationClassLhTranslation::getInstance()->getTranslation('chat/accepttrasnfer','has accepted the chat!');
 	$msg->chat_id = $chat->id;
 	$msg->user_id = -1;
 	
