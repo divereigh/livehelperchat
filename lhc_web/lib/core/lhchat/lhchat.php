@@ -952,6 +952,14 @@ class erLhcoreClassChat {
 
        		if ($chat->user_id == $currentUser->getUserID()) return true;
 
+			/* This is a workaround for operator to operator chats, when neither operator has
+			 * lhchat/allowopenremotechat, the department id is assigned to that of the
+			 * receiver of the chat. This then means that the originator of the chat no
+			 * longer has access to the chat. Do we need another lh_chat field for the originator
+			 * user_id? The big downside is now everyone has access to operator chats.
+             * */
+			if ($chat->status == erLhcoreClassModelChat::STATUS_OPERATORS_CHAT) return true;
+
             $userDepartaments = erLhcoreClassUserDep::getUserDepartaments($currentUser->getUserID());
 
             if (count($userDepartaments) == 0) return false;
