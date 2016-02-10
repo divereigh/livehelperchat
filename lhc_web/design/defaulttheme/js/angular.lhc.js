@@ -599,7 +599,15 @@ lhcAppControllers.controller('LiveHelperChatCtrl',['$scope','$http','$location',
 	};
 	
 	this.startChatOperator = function(user_id) {	
-		window.open(WWW_DIR_JAVASCRIPT + 'chat/startchatwithoperator/'+user_id,'operatorchatwindow-'+user_id,'menubar=1,resizable=1,width=780,height=450');
+//		window.open(WWW_DIR_JAVASCRIPT + 'chat/startchatwithoperator/'+user_id,'operatorchatwindow-'+user_id,'menubar=1,resizable=1,width=780,height=450');
+		var inst = this;
+		$.postJSON(WWW_DIR_JAVASCRIPT + 'chat/startchatwithoperator/'+user_id ,{'direct':1}, function(data){
+			if (data.error == 'false') {
+				inst.startChat(data.chat_id, data.name);
+				$('#transfer-block-'+data.chat_id).html(data.result);
+			};
+		});
+
 	};
 	
 	// Bootstraps initial attributes

@@ -10,23 +10,25 @@ $msg = new erLhcoreClassModelmsg();
 $tpl->set('user',$user);
 
 
-if ( isset($_POST['SendMessage']) ) {
+if ( isset($_POST['SendMessage']) || isset($_POST['direct'])) {
 
-    $validationFields = array();
-    $validationFields['Message'] =  new ezcInputFormDefinitionElement( ezcInputFormDefinitionElement::OPTIONAL, 'unsafe_raw' );
-
-    $form = new ezcInputForm( INPUT_POST, $validationFields );
     $Errors = array();
+	if (!isset($_POST['direct'])) {
+		$validationFields = array();
+		$validationFields['Message'] =  new ezcInputFormDefinitionElement( ezcInputFormDefinitionElement::OPTIONAL, 'unsafe_raw' );
 
-    if ( !$form->hasValidData( 'Message' ) || $form->Message == '' ) {
-        $Errors[] = erTranslationClassLhTranslation::getInstance()->getTranslation('chat/startchat','Please enter your message');
-    } elseif ($form->hasValidData( 'Message' )) {
-        $msg->msg = $form->Message;
-    }
+		$form = new ezcInputForm( INPUT_POST, $validationFields );
 
-    if ($form->hasValidData( 'Message' ) && $form->Message != '' && mb_strlen($form->Message) > (int)erLhcoreClassModelChatConfig::fetch('max_message_length')->current_value) {
-        $Errors[] = erTranslationClassLhTranslation::getInstance()->getTranslation('chat/startchat','Maximum').' '.(int)erLhcoreClassModelChatConfig::fetch('max_message_length')->current_value.' '.erTranslationClassLhTranslation::getInstance()->getTranslation('chat/startchat','characters for a message');
-    }
+		if ( !$form->hasValidData( 'Message' ) || $form->Message == '' ) {
+			$Errors[] = erTranslationClassLhTranslation::getInstance()->getTranslation('chat/startchat','Please enter your message');
+		} elseif ($form->hasValidData( 'Message' )) {
+			$msg->msg = $form->Message;
+		}
+
+		if ($form->hasValidData( 'Message' ) && $form->Message != '' && mb_strlen($form->Message) > (int)erLhcoreClassModelChatConfig::fetch('max_message_length')->current_value) {
+			$Errors[] = erTranslationClassLhTranslation::getInstance()->getTranslation('chat/startchat','Maximum').' '.(int)erLhcoreClassModelChatConfig::fetch('max_message_length')->current_value.' '.erTranslationClassLhTranslation::getInstance()->getTranslation('chat/startchat','characters for a message');
+		}
+	}
 
     if (count($Errors) == 0) {
 
@@ -46,12 +48,14 @@ if ( isset($_POST['SendMessage']) ) {
     	// Store chat
     	erLhcoreClassChat::getSession()->save($chat);
 
-    	// Store User Message
-    	$msg->chat_id = $chat->id;
-    	$msg->user_id = $currentUser->getUserID();
-    	$msg->time = time();
-    	$msg->name_support = $currentUserData->name.' '.$currentUserData->surname;
-    	erLhcoreClassChat::getSession()->save($msg);
+		if (!isset($_POST['direct'])) {
+    		// Store User Message
+    		$msg->chat_id = $chat->id;
+    		$msg->user_id = $currentUser->getUserID();
+    		$msg->time = time();
+    		$msg->name_support = $currentUserData->name.' '.$currentUserData->surname;
+    		erLhcoreClassChat::getSession()->save($msg);
+		}
 
     	$transfer = new erLhcoreClassModelTransfer();
     	$transfer->chat_id = $chat->id;
@@ -70,8 +74,12 @@ if ( isset($_POST['SendMessage']) ) {
     	erLhcoreClassChatEventDispatcher::getInstance()->dispatch('chat.startchatwithoperator_started',array('chat' => & $chat, 'transfer' => & $transfer));
     	
     	
-    	// Redirect user
-    	erLhcoreClassModule::redirect('chat/single/' . $chat->id);
+		if (!isset($_POST['direct'])) {
+    		// Redirect user
+    		// erLhcoreClassModule::redirect('chat/single/' . $chat->id);
+		} else {
+			echo json_encode(array('error' => 'false', 'chat_id' => $chat->id, 'name' => $user->name_support));
+		}
     	exit;
 
     } else {
