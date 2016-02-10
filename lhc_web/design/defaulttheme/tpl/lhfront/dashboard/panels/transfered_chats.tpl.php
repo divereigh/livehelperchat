@@ -4,14 +4,14 @@
 		<a title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('pagelayout/pagelayout','collapse/expand')?>" ng-click="lhc.toggleWidget('trchats_widget_exp')" class="fs24 pull-right material-icons exp-cntr">{{lhc.toggleWidgetData['trchats_widget_exp'] == false ? 'expand_less' : 'expand_more'}}</a>
 	</div>
 	<div ng-if="lhc.toggleWidgetData['trchats_widget_exp'] !== true">
-	<div ng-if="transfer_chats.list.length > 0" class="panel-list">
-		<table class="table table-condensed mb0 table-small table-fixed">
-		 	<thead>
-				<tr>
-	       			<th width="60%"><i title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Visitor');?>" class="material-icons">face</i></th>
-		       			<th width="40%"><i title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Created');?>" class="material-icons">access_time</i></th>
+		<div ng-if="transfer_chats.list.length > 0" class="panel-list">
+			<table class="table table-condensed mb0 table-small table-fixed">
+			 	<thead>
+					<tr>
+	   	    			<th width="60%"><i title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Visitor');?>" class="material-icons">face</i></th>
+			       			<th width="40%"><i title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Created');?>" class="material-icons">access_time</i></th>
 		       		</tr>
-	       	</thead>
+	   	    	</thead>
 				<tr ng-repeat="chat in transfer_chats.list">
 					<td>
 						<?php if (erLhcoreClassUser::instance()->hasAccessTo('lhchat','singlechatwindow')) : ?>
@@ -24,11 +24,14 @@
 					<td nowrap="nowrap">
 						<div class="abbr-list">{{chat.time_front}}</div>
 					</td>			
-       	        	</tr>
+       		   	</tr>
 			</table>
-       	        	<div ng-if="transfer_chats.list.length == 0" class="m10 alert alert-info"><i class="material-icons">search</i><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Nothing found')?>...</div>
-    		</div>
+			<div ng-if="transfer_chats.list.length == 0" class="m10 alert alert-info">
+<?php if ((int)erLhcoreClassModelChatConfig::fetch('simplified_layout')->current_value == 0) : ?>
+			<i class="material-icons">search</i><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Nothing found')?>...
+<?php endif; ?>
+				&nbsp;
+			</div>
+		</div>
 	</div>
 </div>
-
-
