@@ -26,12 +26,12 @@
 					</td>			
        		   	</tr>
 			</table>
-			<div ng-if="transfer_chats.list.length == 0" class="m10 alert alert-info">
-<?php if ((int)erLhcoreClassModelChatConfig::fetch('simplified_layout')->current_value == 0) : ?>
-			<i class="material-icons">search</i><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Nothing found')?>...
-<?php endif; ?>
-				&nbsp;
 			</div>
+		<div ng-if="transfer_chats.list.length == 0" class="m10 alert alert-info">
+<?php if ((int)erLhcoreClassModelChatConfig::fetch('simplified_layout')->current_value == 0) : ?>
+		<i class="material-icons">search</i><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Nothing found')?>...
+<?php endif; ?>
+			&nbsp;
 		</div>
 	</div>
 </div>
