@@ -1,3 +1,4 @@
+<?php if ((int)erLhcoreClassModelChatConfig::fetch('simplified_layout')->current_value == 0) : ?>
 <div class="pl10 pr10 pt10">
 	<div class="row">
 		<div class="col-xs-9">
@@ -32,3 +33,4 @@
 		</div>
 	</div>
 </div>
+<?php endif; ?>
