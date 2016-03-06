@@ -46,6 +46,12 @@ if (isset($_POST['chats']) && is_array($_POST['chats']) && count($_POST['chats']
 		        
 		        if ( isset($hasAccessToReadArray[$chat_id]) || erLhcoreClassChat::hasAccessToRead($Chat) )
 		        {
+					$tpl->set('sysonly',false);
+				} else {
+					$tpl->set('sysonly',true);
+				}
+				if (1) 
+				{
 		        	$hasAccessToReadArray[$chat_id] = true;
 		        	
 		            if ( ($Chat->last_msg_id > (int)$MessageID) && count($Messages = erLhcoreClassChat::getPendingMessages($chat_id,$MessageID)) > 0)
