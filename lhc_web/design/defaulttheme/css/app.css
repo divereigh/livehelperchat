@@ -463,6 +463,11 @@ div.message-row.response+div.message-admin{
 	border-bottom-left-radius: 10px;
 }
 
+.response.operator-changes
+{
+	margin-left: 0px !important;
+	margin-top:20px !important;
+}
 .message-row.system-response.operator-changes{
 	margin-top:0px;
 	margin-left:0px;
