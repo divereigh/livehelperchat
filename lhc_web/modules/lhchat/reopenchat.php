@@ -19,7 +19,7 @@ if ($chat->user_id == $currentUser->getUserID() || $currentUser->hasAccessTo('lh
 	    $userData = $currentUser->getUserData(true);
 
 	    $msg = new erLhcoreClassModelmsg();
-	    $msg->msg = (string)$userData.' '.erTranslationClassLhTranslation::getInstance()->getTranslation('chat/reopenchat','has reopened the chat!');
+	    $msg->msg = (string)$userData->name_support.' '.erTranslationClassLhTranslation::getInstance()->getTranslation('chat/reopenchat','has reopened the chat!');
 	    $msg->chat_id = $chat->id;
 	    $msg->user_id = -1;
 	    $chat->last_user_msg_time = $msg->time = time();
