@@ -1,12 +1,15 @@
 <?php include(erLhcoreClassDesign::designtpl('lhkernel/modal_header.tpl.php'));?>
 <div id="transfer-block-<?php echo $chat->id?>"></div>
 
+<?php //if this chat hasnt already been transfered ?>
+<?php if (!erLhcoreClassTransfer::getTransferByChat($chat->id)) : ?>
 <div id="transfer-tabpanel" role="tabpanel">
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#transferdepmodal" aria-controls="transferdepmodal" role="tab" data-toggle="tab"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Transfer to a department');?></a></li>
 		<li role="presentation"><a href="#transferusermodal" aria-controls="transferusermodal" role="tab" data-toggle="tab"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Transfer to a user');?></a></li>
 	</ul>
 	<div class="tab-content">
+		
 		<div role="tabpanel" class="tab-pane" id="transferusermodal">
 		
     		<h4><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Logged in users');?></h4>
@@ -18,8 +21,9 @@
     		<?php endforeach; ?>
     
     		<input type="button" onclick="lhinst.transferChat('<?php echo $chat->id;?>')" class="btn btn-default" value="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Transfer');?>" />
-    		
+    	
 		</div>
+		
 		<div role="tabpanel" class="tab-pane active" id="transferdepmodal">
 
     		<div class="row">
@@ -75,4 +79,14 @@
 		</div>
 	</div>
 </div>
+<?php else: ?>	
+	<div role="alert" class="alert alert-success alert-dismissible fade in">
+		This chat has already been transfered<br>
+		<br>
+		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">Close</span>
+		</button>
+	</div>
+	
+<?php endif; ?>	
 <?php include(erLhcoreClassDesign::designtpl('lhkernel/modal_footer.tpl.php'));?>
