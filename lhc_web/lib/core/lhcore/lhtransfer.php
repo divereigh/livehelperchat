@@ -68,7 +68,7 @@ class erLhcoreClassTransfer
        $stmt->setFetchMode(PDO::FETCH_ASSOC);
        $stmt->execute();
        $rows = $stmt->fetchAll();
-		error_log("OUTPUT ".serialize($rows[0]));
+
        return $rows[0];
    }
 

@@ -463,6 +463,14 @@ div.message-row.response+div.message-admin{
 	border-bottom-left-radius: 10px;
 }
 
+.img-responsive.page-head-logo 
+{
+    height: auto; 
+    width: auto; 
+    max-width: 30px; 
+    max-height: 30px;
+}
+
 .response.operator-changes
 {
 	margin-left: 0px !important;
