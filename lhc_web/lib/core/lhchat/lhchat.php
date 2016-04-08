@@ -128,7 +128,6 @@ class erLhcoreClassChat {
     public static function getList($paramsSearch = array(), $class = 'erLhcoreClassModelChat', $tableName = 'lh_chat')
     {
 	       $paramsDefault = array('limit' => 32, 'offset' => 0);
-
 	       $params = array_merge($paramsDefault,$paramsSearch);
 
 	       $session = erLhcoreClassChat::getSession();
@@ -140,8 +139,14 @@ class erLhcoreClassChat {
 			      if (isset($params['filter']) && count($params['filter']) > 0)
 			      {
 			           foreach ($params['filter'] as $field => $fieldValue)
-			           {
-			               $conditions[] = $q->expr->eq( $field, $q->bindValue($fieldValue) );
+			           {					
+							if ($field=='status'&&$fieldValue==5) {
+								//For custom search for chats with visitors
+								//using a not=0 expression produced bad sql syntax, so using >0 instead
+								$conditions[] = $q->expr->gt('online_user_id', $q->bindValue(0));
+							} else {
+								$conditions[] = $q->expr->eq( $field, $q->bindValue($fieldValue) );
+							}
 			           }
 			      }
 
@@ -224,7 +229,14 @@ class erLhcoreClassChat {
 		      	{
 		      		foreach ($params['filter'] as $field => $fieldValue)
 		      		{
-		      			$conditions[] = $q2->expr->eq( $field, $q->bindValue($fieldValue) );
+						
+						if ($field=='status'&&$fieldValue==5) {
+							//For custom search for chats with visitors
+							//using a not=0 expression produced bad sql syntax, so using >0 instead
+							$conditions[] = $q->expr->gt('online_user_id', $q->bindValue(0));
+						} else {
+							$conditions[] = $q->expr->eq( $field, $q->bindValue($fieldValue) );
+						}
 		      		}
 		      	}
 
@@ -307,7 +319,7 @@ class erLhcoreClassChat {
 
 	      return $objects;
     }
-
+	
     public static function getCount($params = array(), $table = 'lh_chat', $operation = 'COUNT(id)')
     {
     	$session = erLhcoreClassChat::getSession();
@@ -319,7 +331,14 @@ class erLhcoreClassChat {
     	{
     		foreach ($params['filter'] as $field => $fieldValue)
     		{
-    			$conditions[] = $q->expr->eq( $field, $q->bindValue($fieldValue) );
+				if ($field=='status'&&$fieldValue==5) {
+					//For custom search for chats with visitors
+					//using a not=0 expression produced bad sql syntax, so using >0 instead
+					$conditions[] = $q->expr->gt('online_user_id', $q->bindValue(0));
+				} else {
+					$conditions[] = $q->expr->eq( $field, $q->bindValue($fieldValue) );
+				}
+						
     		}
     	}
 
@@ -400,7 +419,7 @@ class erLhcoreClassChat {
     	if (isset($params['use_index'])) {
     		$q->useIndex( $params['use_index'] );
     	}
-
+		
     	$stmt = $q->prepare();
     	$stmt->execute();
     	$result = $stmt->fetchColumn();
