@@ -10,13 +10,14 @@
     			$messages = erLhcoreClassChat::getChatMessages($chat->id); ?>
 				<?php include(erLhcoreClassDesign::designtpl('lhchat/syncadmin.tpl.php'));?>
 				<?php if (isset($msg)) {	$LastMessageID = $msg['id'];} ?>
-
-				<?php if ($chat->user_status == 1) : ?>
-				<?php include(erLhcoreClassDesign::designtpl('lhchat/userleftchat.tpl.php')); ?>
-				<?php elseif ($chat->user_status == 0) : ?>
-				<?php include(erLhcoreClassDesign::designtpl('lhchat/userjoined.tpl.php')); ?>
+				
+				<?php if ($chat->status != erLhcoreClassModelChat::STATUS_OPERATORS_CHAT) : ?>
+					<?php if ($chat->user_status == 1) : ?>
+					<?php include(erLhcoreClassDesign::designtpl('lhchat/userleftchat.tpl.php')); ?>
+					<?php elseif ($chat->user_status == 0) : ?>
+					<?php include(erLhcoreClassDesign::designtpl('lhchat/userjoined.tpl.php')); ?>
+					<?php endif;?>
 				<?php endif;?>
-
 			</div>
 			
 		</div>

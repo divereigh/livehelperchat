@@ -1,8 +1,16 @@
 <?php include(erLhcoreClassDesign::designtpl('lhkernel/modal_header.tpl.php'));?>
 <div id="transfer-block-<?php echo $chat->id?>"></div>
 
-<?php //if this chat hasnt already been transfered ?>
-<?php if (!erLhcoreClassTransfer::getTransferByChat($chat->id)) : ?>
+<?php //if this chat has already has a pending transfer ?>
+<?php if (erLhcoreClassTransfer::getTransferByChat($chat->id)) : ?>
+	<div role="alert" class="alert alert-warning alert-dismissible fade in">
+		This chat has already has a pending transfer.<br>
+		<br>
+		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">Close</span>
+		</button>
+	</div>
+<?php else: ?>	
 <div id="transfer-tabpanel" role="tabpanel">
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#transferdepmodal" aria-controls="transferdepmodal" role="tab" data-toggle="tab"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/transferchat','Transfer to a department');?></a></li>
@@ -79,14 +87,5 @@
 		</div>
 	</div>
 </div>
-<?php else: ?>	
-	<div role="alert" class="alert alert-success alert-dismissible fade in">
-		This chat has already been transfered<br>
-		<br>
-		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">Close</span>
-		</button>
-	</div>
-	
 <?php endif; ?>	
 <?php include(erLhcoreClassDesign::designtpl('lhkernel/modal_footer.tpl.php'));?>

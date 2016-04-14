@@ -1,7 +1,19 @@
 <div class="pull-right operator-info pt5">
-	<i class="material-icons mr-0<?php if ($chat->fbst == 1) : ?> up-voted<?php endif;?>">thumb_up</i>
-	<i class="material-icons<?php if ($chat->fbst == 2) : ?> down-voted<?php endif;?>">thumb_down</i>
-
+	<!--<i class="material-icons mr-0<?php if ($chat->fbst == 1) : ?> up-voted<?php endif;?>">thumb_up</i>-->
+	<!--<i class="material-icons<?php if ($chat->fbst == 2) : ?> down-voted<?php endif;?>">thumb_down</i>-->
+	
+	<?php if ($chat->status == erLhcoreClassModelChat::STATUS_PENDING_CHAT) : ?>
+		<span class="label-warning label"><i class="icon-ok icon-white">&nbsp&nbsp</i></span>
+	<?php elseif ($chat->status == erLhcoreClassModelChat::STATUS_ACTIVE_CHAT) : ?>
+		<span class="label-success label"><i class="icon-ok icon-white">&nbsp&nbsp</i></span>
+	<?php elseif ($chat->status == erLhcoreClassModelChat::STATUS_CLOSED_CHAT) : ?>
+		<span class="label-default label"><i class="icon-ok icon-white">&nbsp&nbsp</i></span>
+	<?php elseif ($chat->status == erLhcoreClassModelChat::STATUS_CHATBOX_CHAT) : ?>
+		<span class="label-success label"><i class="icon-ok icon-white">&nbsp&nbsp</i></span>
+	<?php elseif ($chat->status == erLhcoreClassModelChat::STATUS_OPERATORS_CHAT) : ?>
+		<span class="label-success label"><i class="icon-ok icon-white">&nbsp&nbsp</i></span>
+	<?php endif;?>
+		
 	<span class="pull-right label label-default fs12<?php if (erLhcoreClassUser::instance()->hasAccessTo('lhchat','canchangechatstatus')) : ?> action-image<?php endif?>" id="chat-status-text-<?php echo $chat->id?>" <?php if (erLhcoreClassUser::instance()->hasAccessTo('lhchat','canchangechatstatus')) : ?>title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Click to change chat status')?>" onclick="return lhc.revealModal({'url':WWW_DIR_JAVASCRIPT +'chat/changestatus/<?php echo $chat->id?>'})"<?php endif;?>>
 		<?php if ($chat->status == erLhcoreClassModelChat::STATUS_PENDING_CHAT) : ?>
 			<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Pending chat')?>
@@ -197,8 +209,12 @@
 		
     <?php if ($chat->status == erLhcoreClassModelChat::STATUS_OPERATORS_CHAT) : ?>
     <tr>
-	   <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Chat between operators, chat initializer')?></td>    	
-	   <td><?php echo htmlspecialchars($chat->nick)?></td>
+		<td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Chat between operators')?></td>
+		<td></td>	   
+	</tr>
+	<tr>
+		<td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Initiated by')?></td>
+		<td><?php echo htmlspecialchars($chat->nick)?></td>	   
 	</tr>
 	<?php endif;?>	
     <tr>

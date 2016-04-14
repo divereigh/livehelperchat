@@ -3,7 +3,7 @@
 
 if (is_numeric( $Params['user_parameters']['chat_id']) && is_numeric($Params['user_parameters']['item_id']))
 {
-
+//error_log("TRANSFER ".$Params['user_parameters']['chat_id']);
 	$Chat = erLhcoreClassChat::getSession()->load( 'erLhcoreClassModelChat', $Params['user_parameters']['chat_id']);
 	if ( erLhcoreClassChat::hasAccessToRead($Chat) )
 	{
@@ -12,8 +12,8 @@ if (is_numeric( $Params['user_parameters']['chat_id']) && is_numeric($Params['us
 	    // Delete any existing transfer for this chat already underway
 	    $transfer = erLhcoreClassTransfer::getTransferByChat($Params['user_parameters']['chat_id']);
 	    if ($transfer) {
-		$chatTransfer = erLhcoreClassTransfer::getSession()->load( 'erLhcoreClassModelTransfer', $transfer['id']);
-		erLhcoreClassTransfer::getSession()->delete($chatTransfer);
+			$chatTransfer = erLhcoreClassTransfer::getSession()->load( 'erLhcoreClassModelTransfer', $transfer['id']);
+			erLhcoreClassTransfer::getSession()->delete($chatTransfer);
 	    }
 
 	    $Transfer = new erLhcoreClassModelTransfer();

@@ -26,9 +26,9 @@ if (!empty($chatsOpen)){
 				$msg = $rows[0];
 				$otherUser = erLhcoreClassUser::getUserUsingID($msg['user_id']);*/
 					
-				//is current user the caller
+				//is current user the caller (chat initiator)
 				if ($currentUser->getUserID() != $chat->user_id) {
-					//set tab name to callee of the chat
+					//set tab name to callee (chat reciever) of the chat
 					$otherUser = erLhcoreClassUser::getUserUsingID($chat->user_id);
 					
 					if ($otherUser!=null) {
@@ -37,7 +37,7 @@ if (!empty($chatsOpen)){
 				}
 							
 			}
-			echo "lhinst.startChat('$chat->id',$('#tabs'),'".erLhcoreClassDesign::shrt($name,10,'...',30,ENT_QUOTES)."',false);";
+			echo "lhinst.startChat('$chat->id',$('#tabs'),'".erLhcoreClassDesign::shrt($name,15,'...',30,ENT_QUOTES)."',false);";
 		} else {
 			CSCacheAPC::getMem()->removeFromArray('lhc_open_chats', $chat->id);
 		}
