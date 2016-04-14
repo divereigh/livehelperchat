@@ -71,7 +71,7 @@ class erLhcoreClassModelUser {
 	   	}
 	   		   	
    	 	$user = $GLOBALS['erLhcoreClassModelUser_'.$user_id] = erLhcoreClassUser::getSession('slave')->load( 'erLhcoreClassModelUser', (int)$user_id );
-   	 	   	 	
+   	 	//error_log("USER ".serialize($user));   	 	
    	 	return $user;
    }
 

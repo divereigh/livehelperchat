@@ -331,6 +331,17 @@ class erLhcoreClassUser{
        $stmt->execute();       
    }
    
+   public static function getUserUsingID($id)
+   {
+		$db = ezcDbInstance::get();
+
+		$stmt = $db->prepare("SELECT * FROM lh_users WHERE id='".$id."'");
+		$stmt->execute();
+		$rows = $stmt->fetchAll();
+
+		return $rows[0];
+   }
+   
    function getUserList()
    {
      $db = ezcDbInstance::get();

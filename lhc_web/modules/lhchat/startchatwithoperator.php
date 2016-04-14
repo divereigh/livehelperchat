@@ -78,7 +78,8 @@ if ( isset($_POST['SendMessage']) || isset($_POST['direct'])) {
     		// Redirect user
     		// erLhcoreClassModule::redirect('chat/single/' . $chat->id);
 		} else {
-			echo json_encode(array('error' => 'false', 'chat_id' => $chat->id, 'name' => $user->name_support));
+			//echo json_encode(array('error' => 'false', 'chat_id' => $chat->id, 'name' => $user->name_support));
+			echo json_encode(array('error' => 'false', 'chat_id' => $chat->id, 'name' => $user->name.' '.$user->surname));
 		}
     	exit;
 
