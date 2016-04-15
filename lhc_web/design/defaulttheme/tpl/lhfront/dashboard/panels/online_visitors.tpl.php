@@ -1,4 +1,11 @@
-<script> $(function() { $( "#online_visitors" ).resizable();});</script>
+<script> $(function() { $( "#online_visitors" ).resizable({ 
+                stop        : onDashWidgetResize, 
+                containment : 'parent', 
+                handles     : "all", 
+                autoHide    : true, 
+                knobHandles : true,
+				resize        : onTest				
+});});</script>
 
 <div id="online_visitors" class="panel panel-default panel-dashboard" data-panel-id="online_visitors" ng-init="lhc.getToggleWidget('onvisitors_widget_exp')">
 	<div class="panel-heading">

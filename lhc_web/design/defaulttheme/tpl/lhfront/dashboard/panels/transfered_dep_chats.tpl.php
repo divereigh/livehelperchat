@@ -1,4 +1,11 @@
-<script> $(function() { $( "#transfered_dep_chats" ).resizable();});</script>
+<script> $(function() { $( "#transfered_dep_chats" ).resizable({ 
+                stop        : onDashWidgetResize, 
+                containment : 'parent', 
+                handles     : "all", 
+                autoHide    : true, 
+                knobHandles : true,
+				resize        : onTest				
+});});</script>
 
 <div id="transfered_dep_chats" class="panel panel-default panel-dashboard" data-panel-id="transfered_dep_chats" ng-init="lhc.getToggleWidget('trdchats_widget_exp')">
 	<div class="panel-heading">

@@ -1,4 +1,11 @@
-<script> $(function() { $( "#online_operators" ).resizable();});</script>
+<script> $(function() { $( "#online_operators" ).resizable({ 
+                stop        : onDashWidgetResize, 
+                containment : 'parent', 
+                handles     : "all", 
+                autoHide    : true, 
+                knobHandles : true,
+				resize        : onTest				
+});});</script>
 
 <div id="online_operators" class="panel panel-default panel-dashboard" data-panel-id="online_operators" ng-init="lhc.getToggleWidget('ooperators_widget_exp')">
 	<div class="panel-heading">

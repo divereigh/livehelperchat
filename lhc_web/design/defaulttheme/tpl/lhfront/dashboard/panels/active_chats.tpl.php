@@ -1,4 +1,13 @@
-<script> $(function() { $( "#active_chats" ).resizable();});</script>
+<script> 
+$(function() { $( "#active_chats" ).resizable({ 
+                stop        : onDashWidgetResize, 
+                containment : 'parent', 
+                handles     : "all", 
+                autoHide    : true, 
+                knobHandles : true,
+				resize        : onTest			
+});});
+</script>
 
 <div id="active_chats" class="panel panel-default panel-dashboard" data-panel-id="active_chats" ng-init="lhc.getToggleWidget('activec_widget_exp')">
 	<div class="panel-heading">

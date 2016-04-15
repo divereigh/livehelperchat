@@ -1,4 +1,11 @@
-<script> $(function() { $( "#closed_chats" ).resizable();});</script>
+<script> $(function() { $( "#closed_chats" ).resizable({ 
+                stop        : onDashWidgetResize, 
+                containment : 'parent', 
+                handles     : "all", 
+                autoHide    : true, 
+                knobHandles : true,
+				resize        : onTest				
+});});</script>
 
 <div id ="closed_chats" class="panel panel-default panel-dashboard" data-panel-id="closed_chats" ng-init="lhc.getToggleWidget('closedc_widget_exp')">
 	<div class="panel-heading">

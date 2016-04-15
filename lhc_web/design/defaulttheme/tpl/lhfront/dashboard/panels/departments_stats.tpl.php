@@ -1,4 +1,11 @@
-<script> $(function() { $( "#departments_stats" ).resizable();});</script>
+<script> $(function() { $( "#departments_stats" ).resizable({ 
+                stop        : onDashWidgetResize, 
+                containment : 'parent', 
+                handles     : "all", 
+                autoHide    : true, 
+                knobHandles : true,
+				resize        : onTest
+});});</script>
 
 <div id="departments_stats" class="panel panel-default panel-dashboard" data-panel-id="departments_stats" ng-init="lhc.getToggleWidget('dstats_widget_exp')">
 	<div class="panel-heading">

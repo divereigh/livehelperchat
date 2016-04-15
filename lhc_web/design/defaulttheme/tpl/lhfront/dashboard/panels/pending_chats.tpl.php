@@ -1,4 +1,11 @@
-<script> $(function() { $( "#pending_chats" ).resizable();});</script>
+<script> $(function() { $( "#pending_chats" ).resizable({ 
+                stop        : onDashWidgetResize, 
+                containment : 'parent', 
+                handles     : "all", 
+                autoHide    : true, 
+                knobHandles : true,
+				resize        : onTest				
+});});</script>
     
 <div id="pending_chats" class="panel panel-default panel-dashboard" data-panel-id="pending_chats" ng-init="lhc.getToggleWidget('pchats_widget_exp');lhc.getToggleWidget('pending_chats_sort')">
 	<div class="panel-heading">

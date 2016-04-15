@@ -1,3 +1,75 @@
+<script>
+var dashWidgetWidths = [];
+
+onTest = function (event, ui) { 
+	$(this).siblings().each(function() {
+		if ($(this).attr('id')) {
+			dashWidgetWidths[$(this).attr('id')] = $(this).width();
+		}
+	});
+};
+onDashWidgetResize = function (event, ui) { 
+
+    var rs = this; 
+	var parent = null;
+	var parentStartWidth = 0;
+	var highestWidgetLength = 0;
+	var parentDefaultWidth = 0;
+	var tmp = 0;
+	
+	//effectively stops other widgets resizing
+	$(rs).siblings().each(function() {
+		if ($(this).attr('id')) {
+			$(this).css('width', dashWidgetWidths[$(this).attr('id')]);
+		}
+	});
+	
+    //layout_area is a div that contains all the resizables 
+    $("#dashboard-body").children().each( function() { //loop each column of widgets
+		
+		if ($(this).attr('id')) {
+			
+			parent=this;
+			parentStartWidth = $(this).width();
+			
+			tmp = $(parent).width();
+			$(parent).css('width', '');
+			parentDefaultWidth = $(parent).width();
+			$(parent).css('width', tmp);
+
+		}
+		
+		$(this).children().each(function() { //loop each widget in the column
+			if ($(this).attr('id')) {						
+				if ($(rs).width()>parentStartWidth) {
+					//resize column width with the widget
+					$(parent).css('width', $(rs).width());
+				} else {
+					//
+					$(rs).siblings().each(function() {
+						if ($(this).attr('id')) {
+							if ($(this).width()>highestWidgetLength) {
+								highestWidgetLength = $(this).width();
+							}
+						}					
+					});
+
+					if (highestWidgetLength<parentDefaultWidth) {
+						$(parent).css('width', '');
+					}
+	
+				}
+	
+			}
+
+		});
+		
+
+    }); 
+	
+} 
+</script>
+
 <?php
 //needed to set dash panels resizable
 echo '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">';
@@ -18,7 +90,7 @@ $columnSize = 12 / $columnsTotal;
 <div class="row" id="dashboard-body" ng-init='lhc.setUpListNames(["actived","closedd","unreadd","pendingd","operatord","departmentd"])'>
      <a class="dashboard-configuration" onclick="return lhc.revealModal({'url':WWW_DIR_JAVASCRIPT +'chat/dashboardwidgets'})" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Configure dashboard')?>"><i class="material-icons mr-0">&#xE871;</i></a>
      <?php for ($i = 0; $i < $columnsTotal; $i++) : $widgets = array_filter(explode(',', $dashboardOrder[$i])); ?>
-        <div class="col-md-<?php echo $columnSize+2?> col-lg-<?php echo $columnSize?> sortable-column-dashboard">
+        <div id="column<?php echo $i?>"class="col-md-<?php echo $columnSize+2?> col-lg-<?php echo $columnSize?> sortable-column-dashboard">
             <?php foreach ($widgets as $wiget) : ?>
                 <?php if ($wiget == 'online_operators') : ?>
                  
