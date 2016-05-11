@@ -19,7 +19,7 @@ class erLhcoreClassUser{
        $options->timestampKey = 'lhc_ezcAuth_timestamp';
 
        $this->session = new ezcAuthenticationSession($options);
-       $this->session->start();
+       $this->session->start(); //session_id() is now set
 
        $this->credentials = new ezcAuthenticationPasswordCredentials( $this->session->load(), null );
 
@@ -309,7 +309,7 @@ class erLhcoreClassUser{
    		}
    		
    		try {
-	   		$userData = $this->getUserData(true);   		
+	   		$userData = $this->getUserData(true); 
 	   		CSCacheAPC::getMem()->setSession('lhc_user_timezone',$userData->time_zone,true);
 	   		return $userData->time_zone;
    		} catch (Exception $e) {
@@ -481,7 +481,8 @@ class erLhcoreClassUser{
    private $AccessTimestamp = false;
 
    // This variable will be set to true based on online hosting record
-   public static $oneLoginPerAccount = false;
+   //public static $oneLoginPerAccount = false;
+   public static $oneLoginPerAccount = true; //this causes session_id to be stored in user table on login
    
    // Authentification things
    public $authentication;
