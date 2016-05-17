@@ -46,7 +46,8 @@ try {
     		$department = $chat->department;    		   		
     		if ($department !== false) {    			
     			$options = $department->inform_options_array;   		 				
-    			$delay = time()-$department->inform_delay;    			
+    			$delay = time()-$department->inform_delay; 
+
     			if ($chat->time < $delay) {
     				erLhcoreClassChatWorkflow::newChatInformWorkflow(array('department' => $department,'options' => $options),$chat);
     			}
