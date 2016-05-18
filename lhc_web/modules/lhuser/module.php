@@ -9,6 +9,11 @@ $ViewList['login'] = array(
     'uparams' => array('r'),
 );
 
+$ViewList['logout_other_operator'] = array(
+    'params' => array('user_id'),
+    'functions' => array( 'use' )
+);
+
 $ViewList['autologin'] = array(
     'params' => array('hash'),
     'uparams' => array('r','u','l','t'),

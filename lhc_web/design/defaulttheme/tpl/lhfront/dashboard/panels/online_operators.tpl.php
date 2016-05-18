@@ -24,7 +24,12 @@
 						<th width="40%"><i title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Operator');?>" class="material-icons">account_box</i></th>
 						<th width="15%"><i title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Last activity ago');?>" class="material-icons">access_time</i></th>
 						<th width="15%"><i title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Active chats');?>" class="material-icons chat-active">chat</i></th>
-						<th width="30%"><i title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Department');?>" class="material-icons">home</i></th>
+						<?php if ($currentUser->hasAccessTo('lhsystem','use')) : ?>
+							<th width="15%"><i title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Department');?>" class="material-icons">home</i></th>
+							<th width="15%"></th>
+						<?php else: ?>
+							<th width="30%"><i title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Department');?>" class="material-icons">home</i></th>
+						<?php endif; ?> 
 					</tr>
 				</thead>
 				<tr ng-repeat="operator in online_op.list track by operator.id">
@@ -34,7 +39,9 @@
 					</td>
 					<td>{{operator.active_chats}}</td>
 					<td><div class="abbr-list" title="{{operator.departments_names.join(', ')}}">{{operator.departments_names.join(", ")}}</div></td>
-					
+					<?php if ($currentUser->hasAccessTo('lhsystem','use')) : ?>
+						<td><a ng-show="operator.user_id != <?php echo erLhcoreClassUser::instance()->getUserID();?>" href="#" ng-click="lhc.logoutOtherOperator(operator.user_id)" title="Logout {{operator.name_support}}"><i class="material-icons">input</i></a></td>
+					<?php endif; ?> 
 				</tr>
 			</table>
 		</div>

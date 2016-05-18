@@ -1,5 +1,4 @@
 <?php
-
 $currentUser = erLhcoreClassUser::instance();
 
 $onlineTimeout = (int)erLhcoreClassModelChatConfig::fetchCache('sync_sound_settings')->data['online_timeout'];
@@ -167,6 +166,23 @@ if ($pendingTabEnabled == true) {
 		$chatRecent = reset($pendingChats);
 		$lastChatNick = $chatRecent->nick.' | '.$chatRecent->department;
 		$lastMessage = erLhcoreClassChat::getGetLastChatMessagePending($chatRecent->id);
+	}
+	
+	session_start();
+	
+	//check if we need to alert operator that this chat has been pending for a while
+	//sets flag which is checked at the client side to determin if we fire an alert
+	foreach ($pendingChats as & $pendingChat) {
+
+		if (isset($_SESSION['pending_visitor_chats_still_waiting'])) {
+
+			if (($key = array_search($pendingChat->id, $_SESSION['pending_visitor_chats_still_waiting'], true)) !== false) {
+				$pendingChat->alert_user_wait_time_pending = true;
+				//error_log("Before unset with key ".$key." ".serialize($_SESSION['pending_visitor_chats_still_waiting'][$key]));
+				unset($_SESSION['pending_visitor_chats_still_waiting'][$key]);
+				//error_log("After unset ".serialize($_SESSION['pending_visitor_chats_still_waiting'][$key]));				
+			}
+		}
 	}
 
 	erLhcoreClassChat::prefillGetAttributes($pendingChats,array('time_created_front','product_name','department_name','wait_time_pending','wait_time_seconds','plain_user_name'), array('product_id','product','department','time','status','user_id','user'));

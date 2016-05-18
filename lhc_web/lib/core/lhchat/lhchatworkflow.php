@@ -5,6 +5,7 @@ class erLhcoreClassChatWorkflow {
     /**
      * Message for timeout
      */
+	 //This is called once after visitors pending chat has been waiting a while for an operator to take
     public static function timeoutWorkflow(erLhcoreClassModelChat & $chat)
     {
     	$msg = new erLhcoreClassModelmsg();
@@ -24,7 +25,51 @@ class erLhcoreClassChatWorkflow {
     	if ($chat->wait_timeout_send == 1) {
     	   $chat->timeout_message = '';
     	}
-    	    	
+		
+		/*Notification for all logged in operators in the chats assigned departement.*/
+		
+		//Get list of user ids in the department where this chat is assigned
+		//adapted from erLhcoreClassModelUserDep::getOnlineOperators
+		$onlineTimeout = (int)erLhcoreClassModelChatConfig::fetchCache('sync_sound_settings')->data['online_timeout'];
+		$filter['customfilter'][] = '(dep_id = '.$chat->dep_id. ')';
+		$filter['filtergt']['last_activity'] = time()-$onlineTimeout;
+	   	$filter['limit'] = 100;//max number of users to recieve the notification about the same pending chat
+		
+		$onlineOperators = erLhcoreClassModelUserDep::getList($filter);
+		erLhcoreClassChat::prefillGetAttributes($onlineOperators,array('user_id'),array(),array('remove_all' => true));
+		//for each operator we set a session variable to trigger the notification
+		foreach ($onlineOperators as $operator) {
+			//Get session id of remote user (operator)				
+			$q = ezcDbInstance::get()->createSelectQuery();
+			$q->select('session_id')->from( 'lh_users' )->where($q->expr->eq( 'id', $q->bindValue( $operator->user_id)));
+			$stmt = $q->prepare();
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+			$target_operator_session_id = $result[0]['session_id'];
+			
+			//store current session id before we load remote users session
+			$current_user_session_id=session_id();
+			//close current session before we switch to the new one
+			session_write_close();
+			//open the target session
+			session_id($target_operator_session_id);
+			session_start();
+			
+			//set session variable for remote user (operator)
+			if (isset($_SESSION['pending_visitor_chats_still_waiting'])) {
+				array_push($_SESSION['pending_visitor_chats_still_waiting'],$chat->id);
+			} else {
+				$_SESSION['pending_visitor_chats_still_waiting'] = array($chat->id);
+			}
+			
+			//close target session
+			session_write_close();
+
+			//reopen the "real" current session
+			session_id($current_user_session_id);
+			session_start();
+		}
+			
     	$chat->updateThis();
     }
 
