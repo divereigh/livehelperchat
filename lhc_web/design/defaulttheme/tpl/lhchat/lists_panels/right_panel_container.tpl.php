@@ -1,4 +1,4 @@
-<div class="panel panel-default panel-lhc" ng-show="pending_chats.list.length > 0 || transfer_chats.list.length >0 || transfer_dep_chats.list.length > 0 <?php include(erLhcoreClassDesign::designtpl('pagelayouts/parts/right_column_angular_conditions_multiinclude.tpl.php'));?>">
+<div class="panel panel-default panel-lhc" ng-show="active_chats.list.length > 0 || pending_chats.list.length > 0 || transfer_chats.list.length >0 || transfer_dep_chats.list.length > 0 <?php include(erLhcoreClassDesign::designtpl('pagelayouts/parts/right_column_angular_conditions_multiinclude.tpl.php'));?>">
     
     <?php include(erLhcoreClassDesign::designtpl('lhchat/lists_panels/basic_chat_enabled.tpl.php'));?>
     
