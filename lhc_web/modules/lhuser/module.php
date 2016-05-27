@@ -9,8 +9,8 @@ $ViewList['login'] = array(
     'uparams' => array('r'),
 );
 
-$ViewList['logout_other_operator'] = array(
-    'params' => array('user_id'),
+$ViewList['set_other_operator_online_status'] = array(
+    'params' => array('user_id','online_status'),
     'functions' => array( 'use' )
 );
 
