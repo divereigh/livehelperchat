@@ -10,11 +10,12 @@
 	$stmt->execute();
 	$result = $stmt->fetchAll();
 	$target_operator_session_id = $result[0]['session_id'];
-
+	
+	error_log("TARGET SESSION = ".$target_operator_session_id);
 	//store current session id before we load remote users session
 	$current_user_session_id=session_id();
 	//close current session before we switch to the new one
-
+	error_log("CURRENT SESSION = ".$current_user_session_id);
 	session_write_close();
 	//open the target session
 	session_id($target_operator_session_id);
@@ -28,12 +29,12 @@
 	if (isset($_SESSION['lhc_user_timezone'])){ unset($_SESSION['lhc_user_timezone']); }
 	if (isset($_SESSION['lhc_chat_config'])){ unset($_SESSION['lhc_chat_config']); }
 	 
-	error_log("COOKIE a ".$_COOKIE['lhc_rm_u']); 
+	error_log("COOKIE = ".$_COOKIE['lhc_rm_u']); 
 	if ( isset($_COOKIE['lhc_rm_u']) ) {
 		unset($_COOKIE['lhc_rm_u']);
 		setcookie('lhc_rm_u','',time()-31*24*3600,'/');
 	};
-
+	error_log("User_ID = ".$Params['user_parameters']['user_id']); 
 	if (is_numeric($Params['user_parameters']['user_id'])) {
 		
 		$q = ezcDbInstance::get()->createDeleteQuery();
