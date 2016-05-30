@@ -41,7 +41,7 @@
 					<td><div class="abbr-list" title="{{operator.departments_names.join(', ')}}">{{operator.departments_names.join(", ")}}</div></td>
 					<?php if ($currentUser->hasAccessTo('lhsystem','use')) : ?>
 						
-						<td><a ng-show="operator.user_id != <?php echo erLhcoreClassUser::instance()->getUserID();?>" href="#" ng-click="lhc.setOtherOperatorOnlineStatus(operator.user_id,!operator.hide_online)" title="Toggle {{operator.name_support}} Online Status"><i class="material-icons">{{operator.hide_online ? 'flash_off' : 'flash_on'}}</i></a></td>
+						<td><a ng-show="operator.user_id != <?php echo erLhcoreClassUser::instance()->getUserID();?>" href="#" ng-click="lhc.setOtherOperatorOnlineStatus(operator.user_id,!operator.hide_online)" title="Set {{operator.name_support}} {{operator.hide_online ? 'Online' : 'Offline'}}"><i class="material-icons pull-right">{{operator.hide_online ? 'flash_off' : 'flash_on'}}</i></a></td>
 					<?php endif; ?> 
 				</tr>
 			</table>

@@ -14,7 +14,8 @@
 	} else {
 		$hide_online = 0;
 	}
-
+	
+	//Adapted and simplified from modules\lhuser\setoffline.php
 	$db = ezcDbInstance::get();
 	#erLhcoreClassUser::getSession()->update($UserData);
 	$stmt = $db->prepare('UPDATE lh_users SET hide_online = :hide_online WHERE id = :user_id');
