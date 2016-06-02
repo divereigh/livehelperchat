@@ -134,9 +134,15 @@ $columnSize = 12 / $columnsTotal;
             
                     <?php if ($transfer_panel_container_pre_enabled == true) : ?>
                             <?php include(erLhcoreClassDesign::designtpl('lhfront/dashboard/panels/transfered_chats.tpl.php'));?>
+                    <?php endif;?>
+                <?php elseif ($wiget == 'transfered_dep_chats') : ?>
+                
+                <?php include(erLhcoreClassDesign::designtpl('lhchat/lists_panels/transfer_panel_container_pre.tpl.php'));?>
+            
+                    <?php if ($transfer_panel_container_pre_enabled == true) : ?>
                             <?php include(erLhcoreClassDesign::designtpl('lhfront/dashboard/panels/transfered_dep_chats.tpl.php'));?>
                     <?php endif;?>
-                    
+					
                 <?php elseif ($wiget == 'closed_chats') : ?>
                 
                     <?php if ($online_chat_enabled_pre == true && $closedTabEnabled == true) : ?>                

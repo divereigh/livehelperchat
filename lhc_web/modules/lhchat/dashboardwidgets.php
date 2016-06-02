@@ -25,7 +25,8 @@ $supportedWidgets = array(
     'departments_stats' => erTranslationClassLhTranslation::getInstance()->getTranslation('chat/dashboardwidgets','Departments stats'),
     'pending_chats' => erTranslationClassLhTranslation::getInstance()->getTranslation('chat/dashboardwidgets','Pending chats'),
     'unread_chats' => erTranslationClassLhTranslation::getInstance()->getTranslation('chat/dashboardwidgets','Unread chats'),
-    'transfered_chats' => erTranslationClassLhTranslation::getInstance()->getTranslation('chat/dashboardwidgets','Transfered chats'),
+    'transfered_chats' => erTranslationClassLhTranslation::getInstance()->getTranslation('chat/dashboardwidgets','Direct transfered chats'),
+	'transfered_dep_chats' => erTranslationClassLhTranslation::getInstance()->getTranslation('chat/dashboardwidgets','Dep transfered chats'),
     'closed_chats' => erTranslationClassLhTranslation::getInstance()->getTranslation('chat/dashboardwidgets','Closed chats')
 );
 
