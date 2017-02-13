@@ -1,7 +1,7 @@
 <div class="pull-right operator-info pt5">
 	<!--<i class="material-icons mr-0<?php if ($chat->fbst == 1) : ?> up-voted<?php endif;?>">thumb_up</i>-->
 	<!--<i class="material-icons<?php if ($chat->fbst == 2) : ?> down-voted<?php endif;?>">thumb_down</i>-->
-	
+
 	<?php if ($chat->status == erLhcoreClassModelChat::STATUS_PENDING_CHAT) : ?>
 		<span class="label-warning label"><i class="icon-ok icon-white">&nbsp&nbsp</i></span>
 	<?php elseif ($chat->status == erLhcoreClassModelChat::STATUS_ACTIVE_CHAT) : ?>
@@ -13,7 +13,7 @@
 	<?php elseif ($chat->status == erLhcoreClassModelChat::STATUS_OPERATORS_CHAT) : ?>
 		<span class="label-success label"><i class="icon-ok icon-white">&nbsp&nbsp</i></span>
 	<?php endif;?>
-		
+
 	<span class="pull-right label label-default fs12<?php if (erLhcoreClassUser::instance()->hasAccessTo('lhchat','canchangechatstatus')) : ?> action-image<?php endif?>" id="chat-status-text-<?php echo $chat->id?>" <?php if (erLhcoreClassUser::instance()->hasAccessTo('lhchat','canchangechatstatus')) : ?>title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Click to change chat status')?>" onclick="return lhc.revealModal({'url':WWW_DIR_JAVASCRIPT +'chat/changestatus/<?php echo $chat->id?>'})"<?php endif;?>>
 		<?php if ($chat->status == erLhcoreClassModelChat::STATUS_PENDING_CHAT) : ?>
 			<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Pending chat')?>
@@ -27,9 +27,9 @@
 			<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Operators chat')?>
 		<?php endif;?>
 	</span>
-		
+
 </div>
-	 
+
 <div>
 
 <?php if ((int)erLhcoreClassModelChatConfig::fetch('simplified_layout')->current_value == 0) : ?>
@@ -37,51 +37,51 @@
 <?php endif;?>
 
 <?php if (!isset($hideActionBlock)) : ?>
-		
+
 <?php if ((int)erLhcoreClassModelChatConfig::fetch('simplified_layout')->current_value == 0) : ?>
 		<a class="material-icons mr-0" data-title="<?php echo htmlspecialchars($chat->nick,ENT_QUOTES);?>" onclick="lhinst.startChatCloseTabNewWindow('<?php echo $chat->id;?>',$('#tabs'),$(this).attr('data-title'))" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Open in a new window');?>">open_in_new</a>
-					
+
 		<a class="material-icons mr-0" onclick="lhinst.removeDialogTab('<?php echo $chat->id?>',$('#tabs'),true)" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Close dialog')?>">remove_circle_outline</a>
 <?php endif;?>
-		
+
 		<?php if ($chat->user_id == erLhcoreClassUser::instance()->getUserID() || erLhcoreClassUser::instance()->hasAccessTo('lhchat','allowcloseremote') || ($chat->status == erLhcoreClassModelChat::STATUS_OPERATORS_CHAT)) : ?>
 		<a class="material-icons mr-0" onclick="lhinst.closeActiveChatDialog('<?php echo $chat->id?>',$('#tabs'),true)" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Close chat')?>">close</a>
 		<?php endif;?>
-		
+
 		<?php if (erLhcoreClassUser::instance()->hasAccessTo('lhchat','deleteglobalchat') || (erLhcoreClassUser::instance()->hasAccessTo('lhchat','deletechat') && $chat->user_id == erLhcoreClassUser::instance()->getUserID())) : ?>
 		<a class="material-icons mr-0" onclick="lhinst.deleteChat('<?php echo $chat->id?>',$('#tabs'),true)" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Delete chat')?>">delete</a>
-		<?php endif ?>	
-		
+		<?php endif ?>
+
 		<?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/actions/transfer.tpl.php'));?>
-		
+
 		<?php if (erLhcoreClassUser::instance()->hasAccessTo('lhchat','allowblockusers')) : ?>
             <?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/actions/blockuser.tpl.php'));?>
 		<?php endif;?>
-		
+
 <?php if ((int)erLhcoreClassModelChatConfig::fetch('simplified_layout')->current_value == 0) : ?>
 		<a class="material-icons mr-0 <?php if ($chat->mail_send == 1) : ?>icon-mail-send<?php endif; ?>" onclick="lhc.revealModal({'iframe':true,'height':500,'url':WWW_DIR_JAVASCRIPT +'chat/sendmail/<?php echo $chat->id?>'})" title="<?php if ($chat->mail_send == 1) : ?><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Mail was send')?><?php else : ?><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Send mail')?><?php endif;?>">mail</a>
-		
+
 		<a class="material-icons mr-0" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Redirect user to contact form.');?>" onclick="lhinst.redirectContact('<?php echo $chat->id;?>','<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Are you sure?');?>')" >reply</a>
-			
+
 		<a target="_blank" href="<?php echo erLhcoreClassDesign::baseurl('chat/printchatadmin')?>/<?php echo $chat->id?>" class="material-icons mr-0" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Print')?>">print</a>
-		
+
 		<?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/actions/attatch_file.tpl.php'));?>
-		
+
 		<?php if (erLhcoreClassUser::instance()->hasAccessTo('lhchat','allowredirect')) : ?>
 		<a class="material-icons mr-0" onclick="lhinst.redirectToURL('<?php echo $chat->id?>','<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Please enter a URL');?>')" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Redirect user to another url');?>">link</a>
 		<?php endif;?>
-		
+
 		<?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/actions/speech.tpl.php'));?>
-			
+
 		<?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/actions/cobrowse.tpl.php'));?>
-				
+
 		<?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/chat_actions_extension_multiinclude.tpl.php'));?>
 <?php endif;?>
-		 	
+
 	<?php else : ?>
 	<a class="material-icons mr-0" target="_blank" href="<?php echo erLhcoreClassDesign::baseurl('chatarchive/printchatadmin')?>/<?php echo $archive->id?>/<?php echo $chat->id?>">print</a>
 	<a class="material-icons mr-0" onclick="return lhc.revealModal({'iframe':true,'height':500,'url':WWW_DIR_JAVASCRIPT +'chatarchive/sendmail/<?php echo $archive->id?>/<?php echo $chat->id?>'})">mail</a>
-	<?php endif; ?>	
+	<?php endif; ?>
 </div>
 
 
@@ -92,29 +92,29 @@
 		<td><?php echo htmlspecialchars($chat->department);?></td>
 	</tr>
 	<?php endif;?>
-	
+
 	<?php if ($chat->product !== false) : ?>
 	<tr>
 		<td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Product')?></td>
 		<td><?php echo htmlspecialchars($chat->product);?></td>
 	</tr>
 	<?php endif;?>
-	
+
 	<?php if ( !empty($chat->country_code) ) : ?>
 	<tr>
 		<td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Country')?></td>
 		<td><img src="<?php echo erLhcoreClassDesign::design('images/flags')?>/<?php echo $chat->country_code?>.png" alt="<?php echo htmlspecialchars($chat->country_name)?>" title="<?php echo htmlspecialchars($chat->country_name)?>" /></td>
 	</tr>
 	<?php endif;?>
-	
+
 	<?php if ( !empty($chat->user_tz_identifier) ) : ?>
 	<tr>
 		<td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Time zone')?></td>
 		<td><?php echo htmlspecialchars($chat->user_tz_identifier)?>, <?php echo htmlspecialchars($chat->user_tz_identifier_time)?></td>
 	</tr>
 	<?php endif;?>
-	
-	
+
+
 	<?php if ( !empty($chat->city) ) : ?>
 	<tr>
 		<td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','City')?></td>
@@ -155,15 +155,15 @@
 		<td><?php echo htmlspecialchars($chat->phone)?></td>
 	</tr>
 	<?php endif;?>
-	
+
 	<?php include(erLhcoreClassDesign::designtpl('lhchat/chat_tabs/after_phone_extension_multiinclude.tpl.php'));?>
-	
+
 	<?php if (!empty($chat->additional_data)) : ?>
 	<tr>
 		<td>
 		  <a class="btn btn-default btn-xs" onclick="lhinst.addRemoteCommand('<?php echo $chat->id?>','lhc_cfrefresh');$('#custom-data-td-<?php echo $chat->id?>').text('...')" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Refresh')?>"><i class="material-icons mr-0">&#xE5D5;</i></a>&nbsp;<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Additional data')?>
 		</td>
-		<td id="custom-data-td-<?php echo $chat->id?>">		
+		<td id="custom-data-td-<?php echo $chat->id?>">
 		<?php if (is_array($chat->additional_data_array)) : ?>
 			<ul class="circle mb0">
 				<?php foreach ($chat->additional_data_array as $addItem) : ?>
@@ -187,7 +187,7 @@
 		<td><?php echo $chat->user_closed_ts_front?></td>
 	</tr>
 	<?php endif;?>
-	
+
 	<?php if ($chat->wait_time > 0) : ?>
 	<tr>
 		<td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Waited')?></td>
@@ -201,26 +201,26 @@
 		<td><?php echo $chat->chat_duration_front?></td>
 	</tr>
 	<?php endif;?>
-	
+
 	<tr>
 		<td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Chat duration')?></td>
 		<td><?php echo $chat->chat_duration_front?></td>
 	</tr>
-		
+
     <?php if ($chat->status == erLhcoreClassModelChat::STATUS_OPERATORS_CHAT) : ?>
     <tr>
 		<td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Chat between operators')?></td>
-		<td></td>	   
+		<td></td>
 	</tr>
 	<tr>
 		<td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Initiated by')?></td>
-		<td><?php echo htmlspecialchars($chat->nick)?></td>	   
+		<td><?php echo htmlspecialchars($chat->nick)?></td>
 	</tr>
-	<?php endif;?>	
+	<?php endif;?>
     <tr>
     	<td>
     	   <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/adminchat','Chat owner')?>
-    	</td>    	
+    	</td>
     	<td>
     	   <?php $user = $chat->getChatOwner();  if ($user !== false) : ?>
     	   <?php echo htmlspecialchars($user->name.' '.$user->surname)?>		

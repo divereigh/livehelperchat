@@ -33,7 +33,7 @@ class erLhcoreClassModelUser {
             'attr_int_3' => $this->attr_int_3
         );
    }
-      
+
    public function setState( array $properties )
    {
        foreach ( $properties as $key => $val )
@@ -44,34 +44,34 @@ class erLhcoreClassModelUser {
 
    public function setPassword($password)
    {
-		
+
 		$hash = password_hash($password, PASSWORD_DEFAULT);
-       
+
 		if ($hash) {
 			$this->password = $hash;
 		} else {
 			return false;
-		}		
-       
+		}
+
    }
 
    public static function fetch($user_id, $useCache = false)
-   {   	
+   {
 	   	if ($useCache == true) {
-	   		
+
 		   	if (isset($GLOBALS['erLhcoreClassModelUser_'.$user_id])) return $GLOBALS['erLhcoreClassModelUser_'.$user_id];
-			   	
+
 		   	try {
 		   		$GLOBALS['erLhcoreClassModelUser_'.$user_id] = erLhcoreClassUser::getSession('slave')->load( 'erLhcoreClassModelUser', (int)$user_id );
 		   	} catch (Exception $e) {
 		   		$GLOBALS['erLhcoreClassModelUser_'.$user_id] = null;
 		   	}
-		   	
+
 		   	return $GLOBALS['erLhcoreClassModelUser_'.$user_id];
 	   	}
-	   		   	
+
    	 	$user = $GLOBALS['erLhcoreClassModelUser_'.$user_id] = erLhcoreClassUser::getSession('slave')->load( 'erLhcoreClassModelUser', (int)$user_id );
-   	 	//error_log("USER ".serialize($user));   	 	
+   	 	//error_log("USER ".serialize($user));
    	 	return $user;
    }
 
@@ -111,7 +111,8 @@ class erLhcoreClassModelUser {
        switch ($param) {
 
        	case 'name_support':
-       			return $this->chat_nickname != '' ? trim($this->chat_nickname) : trim($this->name_official);
+            //$this->name was $this->name_official, but name_official caused full name to be visable public chat user
+       			return $this->chat_nickname != '' ? trim($this->chat_nickname) : trim($this->name);
        		break;
 
        	case 'name_official':
@@ -313,14 +314,14 @@ class erLhcoreClassModelUser {
    public static function fetchUserByEmail($email, $xmpp_username = false)
    {
        $db = ezcDbInstance::get();
-       $xmppAppend = $xmpp_username !== false ? ' OR xmpp_username = :xmpp_username' : '';       
+       $xmppAppend = $xmpp_username !== false ? ' OR xmpp_username = :xmpp_username' : '';
        $stmt = $db->prepare('SELECT id FROM lh_users WHERE email = :email'.$xmppAppend);
        $stmt->bindValue( ':email',$email);
-       
+
        if ($xmpp_username !== false) {
-       		$stmt->bindValue( ':xmpp_username',$xmpp_username);       		
+       		$stmt->bindValue( ':xmpp_username',$xmpp_username);
        }
-       
+
        $stmt->execute();
        $rows = $stmt->fetchAll();
 
@@ -336,7 +337,7 @@ class erLhcoreClassModelUser {
    }
 
    public function removeFile()
-   {   		   	
+   {
 	   	if ($this->filename != '' || $this->filename != '') {
 	   		if ( file_exists($this->filepath . $this->filename) ) {
 	   			unlink($this->filepath . $this->filename);
@@ -345,9 +346,9 @@ class erLhcoreClassModelUser {
 	   		if ($this->filepath != '') {
 	   			erLhcoreClassFileUpload::removeRecursiveIfEmpty('var/userphoto/',str_replace('var/userphoto/','',$this->filepath));
 	   		}
-	   		
+
 	   		erLhcoreClassChatEventDispatcher::getInstance()->dispatch('user.remove_photo', array('user' => & $this));
-	   		
+
 	   		$this->filepath = '';
 	   		$this->filename = '';
 	   		$this->saveThis();
@@ -355,33 +356,33 @@ class erLhcoreClassModelUser {
    }
 
 	public function setUserGroups() {
-   		
+
 		erLhcoreClassModelGroupUser::removeUserFromGroups($this->id);
-		
+
 		foreach ($this->user_groups_id as $group_id) {
 			$groupUser = new erLhcoreClassModelGroupUser();
 			$groupUser->group_id = $group_id;
 			$groupUser->user_id = $this->id;
 			$groupUser->saveThis();
 		}
-		
+
    	}
-   
+
    	public static function findOne($paramsSearch = array()) {
-   		
+
    		$paramsSearch['limit'] = 1;
-   		
+
    		$list = self::getUserList($paramsSearch);
-   		
+
    		if (! empty($list)) {
    			reset($list);
    			return current($list);
    		}
-   	
+
    		return false;
-   		
-   	}   	
-   	
+
+   	}
+
     public $id = null;
     public $username = '';
     public $password = '';
@@ -405,7 +406,7 @@ class erLhcoreClassModelUser {
     public $active_chats_counter = 0;
     public $closed_chats_counter = 0;
     public $pending_chats_counter = 0;
-    
+
     public $attr_int_1 = 0;
     public $attr_int_2 = 0;
     public $attr_int_3 = 0;
