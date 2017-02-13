@@ -111,7 +111,8 @@ class erLhcoreClassModelUser {
        switch ($param) {
 
        	case 'name_support':
-       			return $this->chat_nickname != '' ? trim($this->chat_nickname) : trim($this->name_official);
+            // $this->name was $this->name_official, but name_official caused full name to be visable public chat user
+       		return $this->chat_nickname != '' ? trim($this->chat_nickname) : trim($this->name);
        		break;
 
        	case 'name_official':
