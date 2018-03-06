@@ -70,10 +70,10 @@ if ( isset($_POST['SendMessage']) || isset($_POST['direct'])) {
 
     	erLhcoreClassTransfer::getSession()->save($transfer);
 
-    	
+
     	erLhcoreClassChatEventDispatcher::getInstance()->dispatch('chat.startchatwithoperator_started',array('chat' => & $chat, 'transfer' => & $transfer));
-    	
-    	
+
+
 		if (!isset($_POST['direct'])) {
     		// Redirect user
     		// erLhcoreClassModule::redirect('chat/single/' . $chat->id);
