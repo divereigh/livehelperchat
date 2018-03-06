@@ -357,7 +357,7 @@ class erLhcoreClassUser{
    {
        $AccessArray = $this->accessArray();
 	   //gives all user access to set there online status
-		$AccessArray['lhuser']['changeonlinestatus'] = true;
+	   //$AccessArray['lhuser']['changeonlinestatus'] = true;
 		
        // Global rights
        if (isset($AccessArray['*']['*']) || isset($AccessArray[$module]['*']))
