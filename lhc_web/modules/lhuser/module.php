@@ -14,6 +14,11 @@ $ViewList['set_other_operator_online_status'] = array(
     'functions' => array( 'use' )
 );
 
+$ViewList['logout_other_operator'] = array(
+    'params' => array('user_id'),
+    'functions' => array( 'use' )
+);
+
 $ViewList['autologin'] = array(
     'params' => array('hash'),
     'uparams' => array('r','u','l','t'),
