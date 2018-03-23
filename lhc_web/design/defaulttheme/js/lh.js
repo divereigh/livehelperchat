@@ -552,6 +552,7 @@ function lh(){
         			
         			
 	           } else {
+
 	               $('#status-chat').html(data.status);
 	               $('#ChatMessageContainer').remove();
 	               $('#ChatSendButtonContainer').remove();
@@ -565,6 +566,7 @@ function lh(){
 		   					inst.chatClosed();
 		   				}
 	               }
+
 	           }
 	        };
         } catch(err) {		     
@@ -575,6 +577,7 @@ function lh(){
     };
     
     this.chatClosed = function() {
+
     	if (this.survey !== null) {
     		var modeWindow = this.isWidgetMode == true ? '/(mode)/widget' : '';
 		    var operatorTyping = this.operatorTyping == true ? '/(ot)/t' : '';

@@ -324,6 +324,10 @@ option.offline-dep{
 .user-online-row td{
 	background-color:#E4FFE0;
 }
+.priority-dept td{
+	background-color: yellow; !important;
+	/*border: 2px solid red;*/
+}
 
 .icon-user-away,
 .icon-user-away a{

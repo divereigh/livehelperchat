@@ -32,7 +32,7 @@ class erLhcoreClassChat {
 			'lat',
 			'lon',
 			'city',
-			'additional_data',
+			//'additional_data',
 			'session_referrer',
 			'wait_time',
 			'chat_duration',
