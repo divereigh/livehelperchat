@@ -133,7 +133,14 @@ class erLhcoreClassRestAPIHandler
                     'validator' => new ezcInputFormDefinitionElement(ezcInputFormDefinitionElement::OPTIONAL, 'int', array(
                         'min_range' => 1
                     ))
-                )
+                ),
+				'limit' => array(
+					'type' => 'general',
+					'field' => 'limit',
+					'validator' => new ezcInputFormDefinitionElement(ezcInputFormDefinitionElement::OPTIONAL, 'int', array(
+						'min_range' => 1
+					))
+				)
             )
         );
         
