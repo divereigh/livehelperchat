@@ -98,7 +98,12 @@ class erLhcoreClassRestAPIHandler
                 }
             }
         }
-        
+        if (array_key_exists('timeto',$filter)) {
+			$filter['filterlte']['time'] = $filter['timeto'];//must be in timestamp format ( strtotime() didn't work )
+		}
+		if (array_key_exists('timefrom',$filter)) {
+			$filter['filtergte']['time'] = $filter['timefrom'];//must be in timestamp format ( strtotime() didn't work )
+		}
         $filter['limit'] = isset($filter['limit']) ? $filter['limit'] : 20;
         $filter['offset'] = isset($filter['offset']) ? $filter['offset'] : 0;
         $filter['smart_select'] = true;
@@ -137,6 +142,20 @@ class erLhcoreClassRestAPIHandler
 				'limit' => array(
 					'type' => 'general',
 					'field' => 'limit',
+					'validator' => new ezcInputFormDefinitionElement(ezcInputFormDefinitionElement::OPTIONAL, 'int', array(
+						'min_range' => 1
+					))
+				),
+				'timefrom' => array(
+					'type' => 'general',
+					'field' => 'timefrom',
+					'validator' => new ezcInputFormDefinitionElement(ezcInputFormDefinitionElement::OPTIONAL, 'int', array(
+						'min_range' => 1
+					))
+				),
+				'timeto' => array(
+					'type' => 'general',
+					'field' => 'timeto',
 					'validator' => new ezcInputFormDefinitionElement(ezcInputFormDefinitionElement::OPTIONAL, 'int', array(
 						'min_range' => 1
 					))
