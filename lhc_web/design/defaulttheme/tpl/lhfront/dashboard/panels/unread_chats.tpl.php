@@ -26,7 +26,7 @@
 						<th width="20%"><i title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Department');?>" class="material-icons">home</i></th>
 					</tr>
 				</thead>
-				<tr ng-repeat="chat in unread_chats.list track by chat.id" ng-class="{'user-away-row': chat.user_status_front == 2, 'user-online-row': chat.user_status_front == 0}">
+				<tr ng-repeat="chat in unread_chats.list track by chat.id" ng-class="{'user-away-row': chat.user_status_front == 2, 'user-online-row': chat.user_status_front == 0, 'priority-dept': chat.additional_data_array[4].value == 555}">
 					<td>
 						<div data-chat-id="{{chat.id}}" data-toggle="popover" data-placement="top" class="abbr-list">
 							<span ng-if="chat.country_code != undefined"><img ng-src="<?php echo erLhcoreClassDesign::design('images/flags');?>/{{chat.country_code}}.png" alt="{{chat.country_name}}" title="{{chat.country_name}}" />&nbsp;</span>
@@ -35,6 +35,7 @@
 							<?php endif; ?>
 							<a ng-click="lhc.previewChat(chat.id)" class="material-icons">info_outline</a>
 							<a ng-click="lhc.startChat(chat.id,chat.nick)" title="{{chat.nick}}"> {{chat.nick}} </a>
+							<span ng-if="chat.additional_data_array[4].value == 555">ABA Member</span>
 						</div>
 						
 						<div id="popover-title-{{chat.id}}" class="hide">
@@ -45,6 +46,7 @@
 						    <i class="material-icons">access_time</i>{{chat.time_created_front}}<br/>
 							<i class="material-icons">account_box</i>{{chat.plain_user_name}}<br />
 							<i class="material-icons">home</i>{{chat.department_name}}<br />
+							<span ng-if="chat.additional_data_array[4].value == 555"><i class="material-icons">done</i>ABA Member</span>
 							<span ng-show="chat.product_name"><i class="material-icons">&#xE8CC;</i>{{chat.product_name}}</span>
 						</div>
 						

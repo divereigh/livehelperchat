@@ -94,7 +94,7 @@ if ($activeTabEnabled == true) {
     }
 
 	$chats = erLhcoreClassChat::getActiveChats($limitList,0,$filter);
-	erLhcoreClassChat::prefillGetAttributes($chats,array('time_created_front','department_name','plain_user_name','product_name','can_view_chat'),array('product_id','product','department','time','status','user_id','user'));	
+	erLhcoreClassChat::prefillGetAttributes($chats,array('time_created_front','department_name','plain_user_name','product_name','can_view_chat','additional_data_array'),array('product_id','product','department','time','status','user_id','user'));	
 	$ReturnMessages['active_chats'] = array('list' => array_values($chats));	
 	$chatsList[] = & $ReturnMessages['active_chats']['list'];
 }
@@ -119,7 +119,7 @@ if ($closedTabEnabled == true) {
 	 * Closed chats
 	 * */
 	$chats = erLhcoreClassChat::getClosedChats($limitList,0,$filter);
-	erLhcoreClassChat::prefillGetAttributes($chats,array('time_created_front','department_name','plain_user_name','product_name'),array('product_id','product','department','time','status','user_id','user'));
+	erLhcoreClassChat::prefillGetAttributes($chats,array('time_created_front','department_name','plain_user_name','product_name','additional_data_array'),array('product_id','product','department','time','status','user_id','user'));
 	$ReturnMessages['closed_chats'] = array('list' => array_values($chats));
 	
 	$chatsList[] = & $ReturnMessages['closed_chats']['list'];
@@ -155,13 +155,16 @@ if ($pendingTabEnabled == true) {
 	 * */
 	$pendingChats = erLhcoreClassChat::getPendingChats($limitList, 0, $additionalFilter, $filterAdditionalMainAttr);
 
+
 	// added by Jacob to loop through pending chats and put aba member records into a new array, and then
 	// merge the array back into the pending chats array.
 	if (!empty($pendingChats)) {
+		$new_pending_member_array = []; //initialise array
 		foreach ($pendingChats as & $pendingChat) {
 			if (!empty($pendingChat->additional_data)) {
 				if (is_array($pendingChat->additional_data_array)) {
 					foreach ($pendingChat->additional_data_array as $addItem) {
+						// this is where we need to check the abanumber against whatever Nerida provides
 						if ($addItem->identifier == 'abanumber' && $addItem->value == '555') {
 							$new_pending_member_array[] = $pendingChat;
 							unset($pendingChats[$pendingChat->id]);
@@ -204,7 +207,6 @@ if ($pendingTabEnabled == true) {
 	}
 
 	erLhcoreClassChat::prefillGetAttributes($pendingChats,array('time_created_front','product_name','department_name','wait_time_pending','wait_time_seconds','plain_user_name','additional_data_array'), array('product_id','product','department','time','status','user_id','user'));
-	// $ReturnMessages['pending_chats'] = array('list' => array_values($pendingChats),'nick' => $lastChatNick,'msg' => $lastMessage, 'last_id_identifier' => 'pending_chat', 'last_id' => $lastPendingChatID);
 	$ReturnMessages['pending_chats'] = array('list' => array_values($pendingChats),'nick' => $lastChatNick,'msg' => $lastMessage, 'last_id_identifier' => 'pending_chat', 'last_id' => $lastPendingChatID);
 
 	$chatsList[] = & $ReturnMessages['pending_chats']['list'];
@@ -284,7 +286,7 @@ if ($unreadTabEnabled == true) {
 		$lastMessage = erLhcoreClassChat::getGetLastChatMessagePending($chatRecent->id);
 	}
 	
-	erLhcoreClassChat::prefillGetAttributes($unreadChats,array('time_created_front','product_name','department_name','unread_time','plain_user_name'),array('product_id','product','department','time','status','user_id','user'));
+	erLhcoreClassChat::prefillGetAttributes($unreadChats,array('time_created_front','product_name','department_name','unread_time','plain_user_name','additional_data_array'),array('product_id','product','department','time','status','user_id','user'));
 	$ReturnMessages['unread_chats'] = array('msg' => $lastMessage, 'nick' => $lastChatNick, 'last_id' => $lastPendingChatID, 'last_id_identifier' => 'unread_chat', 'list' => array_values($unreadChats));
 	
 	$chatsList[] = & $ReturnMessages['unread_chats']['list'];
