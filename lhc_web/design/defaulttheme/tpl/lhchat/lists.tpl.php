@@ -26,17 +26,13 @@
                         </thead>
                         <?php foreach ($items as $chat) : ?>
                             <?php foreach($chat->additional_data_array as $adddata) {
-                                if ($adddata->identifier == 'abanumber' && $adddata->value == '555') {
+                                $abamemberpattern = '/^[0-9]{6}/'; //just checks that the ABA Member number is 6 digits
+                                if ($adddata->identifier == 'abanumber' && preg_match($abamemberpattern, $adddata->value)) {
                                 	$addClass = " class='priority-dept'";
                                 }
                                 else {
                                 	$addClass = "";
                                 }
-                                // foreach ($adddata as $key => $value) {
-                                // 	if ($key == 'identifier' && $value == 'babyname') {
-	                               //      echo "$key is at $value<br>";
-	                               //  }
-                                // }
                             }?>
                         <tr<?php echo $addClass?>>
                         	<td><input ng-checked="check_all_items" class="mb0" type="checkbox" name="ChatID[]" value="<?php echo $chat->id?>" /></td>       

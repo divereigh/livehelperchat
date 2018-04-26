@@ -29,7 +29,7 @@ $(function() { $( "#active_chats" ).resizable({
 						<th width="20%"><i title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/syncadmininterface','Department');?>" class="material-icons">home</i></th>
 					</tr>
 				</thead>
-				<tr ng-repeat="chat in active_chats.list track by chat.id" ng-class="{'user-away-row': chat.user_status_front == 2, 'user-online-row': chat.user_status_front == 0, 'priority-dept': chat.additional_data_array[4].value == 555}">
+				<tr ng-repeat="chat in active_chats.list track by chat.id" ng-class="{'user-away-row': chat.user_status_front == 2, 'user-online-row': chat.user_status_front == 0, 'priority-dept': chat.additional_data_array[4].value == true}">
 					<td>
 					    
 						<div data-toggle="popover" data-placement="top" data-chat-id="{{chat.id}}" class="abbr-list">
@@ -39,7 +39,7 @@ $(function() { $( "#active_chats" ).resizable({
 							<?php endif; ?>
 							<a ng-if="chat.can_view_chat != undefined" ng-click="lhc.previewChat(chat.id)" class="material-icons">info_outline</a>
 							<a ng-class="{'a-disabled': chat.can_view_chat == undefined }" ng-click="lhc.startChat(chat.id,chat.nick)" title="Add chat"> {{chat.nick}} </a>
-							<span ng-if="chat.additional_data_array[4].value == 555">ABA Member</span>
+							<span ng-if="chat.additional_data_array[4].value == true">ABA Member</span>
 						</div>
 												
 						<div id="popover-title-{{chat.id}}" class="hide">
@@ -51,7 +51,7 @@ $(function() { $( "#active_chats" ).resizable({
 							<i class="material-icons">account_box</i>{{chat.plain_user_name}}<br />
 							<i class="material-icons">home</i>{{chat.department_name}}<br />
 							<span ng-show="chat.product_name"><i class="material-icons">&#xE8CC;</i>{{chat.product_name}}</span>
-							<span ng-if="chat.additional_data_array[4].value == 555"><i class="material-icons">done</i>ABA Member</span>
+							<span ng-if="chat.additional_data_array[4].value == true"><i class="material-icons">done</i>ABA Member</span>
 						</div>
 						
 					</td>

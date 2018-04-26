@@ -94,6 +94,10 @@ if ($activeTabEnabled == true) {
     }
 
 	$chats = erLhcoreClassChat::getActiveChats($limitList,0,$filter);
+
+	// re-sort the active chats
+	$chats = erLhcoreClassChat::reSortChats($chats);
+
 	erLhcoreClassChat::prefillGetAttributes($chats,array('time_created_front','department_name','plain_user_name','product_name','can_view_chat','additional_data_array'),array('product_id','product','department','time','status','user_id','user'));	
 	$ReturnMessages['active_chats'] = array('list' => array_values($chats));	
 	$chatsList[] = & $ReturnMessages['active_chats']['list'];
@@ -155,26 +159,8 @@ if ($pendingTabEnabled == true) {
 	 * */
 	$pendingChats = erLhcoreClassChat::getPendingChats($limitList, 0, $additionalFilter, $filterAdditionalMainAttr);
 
-
-	// added by Jacob to loop through pending chats and put aba member records into a new array, and then
-	// merge the array back into the pending chats array.
-	if (!empty($pendingChats)) {
-		$new_pending_member_array = []; //initialise array
-		foreach ($pendingChats as & $pendingChat) {
-			if (!empty($pendingChat->additional_data)) {
-				if (is_array($pendingChat->additional_data_array)) {
-					foreach ($pendingChat->additional_data_array as $addItem) {
-						// this is where we need to check the abanumber against whatever Nerida provides
-						if ($addItem->identifier == 'abanumber' && $addItem->value == '555') {
-							$new_pending_member_array[] = $pendingChat;
-							unset($pendingChats[$pendingChat->id]);
-						}
-					}
-				}
-			}
-		}
-		$pendingChats = array_merge($new_pending_member_array, $pendingChats);
-	}
+	// re-sort the pending chats
+	$pendingChats = erLhcoreClassChat::reSortChats($pendingChats);
 
 	/**
 	 * Get last pending chat
@@ -275,6 +261,10 @@ if ($unreadTabEnabled == true) {
 
 	// Unread chats
 	$unreadChats = erLhcoreClassChat::getUnreadMessagesChats($limitList,0,$filter);
+
+	// re-sort the unread chats
+	$unreadChats = erLhcoreClassChat::reSortChats($unreadChats);
+
 
 	$lastPendingChatID = 0;
 	$lastChatNick = erTranslationClassLhTranslation::getInstance()->getTranslation('chat/startchat','Visitor');
