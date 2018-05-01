@@ -34,7 +34,7 @@
                                 	$addClass = "";
                                 }
                             }?>
-                        <tr<?php echo $addClass?>>
+                        <tr<?php //echo $addClass?>>
                         	<td><input ng-checked="check_all_items" class="mb0" type="checkbox" name="ChatID[]" value="<?php echo $chat->id?>" /></td>       
                             <td>        
                               <span title="<?php echo $chat->id;?>" class="material-icons fs12 mr-0<?php echo $chat->user_status_front == 2 ? ' icon-user-away' : ($chat->user_status_front == 0 ? ' icon-user-online' : ' icon-user-offline')?>" class="">&#xE3A6;</span>&nbsp;
