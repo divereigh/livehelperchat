@@ -48,6 +48,14 @@ class erLhcoreClassModelUserDep {
     			         $parts = explode(',', $ids);
     			         sort($parts);
 
+						 //hack to make id 1 and 4 swap positions						 
+						 $dep4 = array_search(4,$parts);
+						 $dep1 = array_search(1,$parts);
+						 if ($dep1 and $dep4) {
+							$parts[$dep4]=1;
+							$parts[$dep1]=4;
+						 }
+			 
     			         foreach ($parts as $depId) {
     			             if ($depId == 0) {
     			                 $this->departments_names[] = '∞';
