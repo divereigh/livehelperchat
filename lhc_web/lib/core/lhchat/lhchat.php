@@ -59,11 +59,12 @@ class erLhcoreClassChat {
 	/**
 	 * Sorts the chats with ABA Members at the top
 	 */
+	 //removed sorting code as it was interfering with new pending chat sound
 	public static function reSortChats($theChats)
 	{
 		$abamemberpattern = '/^[0-9]{6}/'; //just checks that the ABA Member number is 6 digits
 		if (!empty($theChats)) {
-			$new_chat_array = []; //initialise holding array
+			//$new_chat_array = []; //initialise holding array
 			foreach ($theChats as & $theChat) {
 				if (!empty($theChat->additional_data)) {
 					if (is_array($theChat->additional_data_array)) {
@@ -72,14 +73,14 @@ class erLhcoreClassChat {
 							if ($addItem->identifier == 'abanumber' && preg_match($abamemberpattern, $addItem->value))
 							{
 								$addItem->value = TRUE; //just sets the ABA Member value to true, for checking in templates
-								$new_chat_array[] = $theChat;
-								unset($theChats[$theChat->id]);
+								//$new_chat_array[] = $theChat;
+								//unset($theChats[$theChat->id]);
 							}
 						}
 					}
 				}
 			}
-			$theChats = array_merge($new_chat_array, $theChats);
+			//$theChats = array_merge($new_chat_array, $theChats);
 		}
 		return $theChats;
 	}
